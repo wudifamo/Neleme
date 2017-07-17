@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+    <TextView
+        android:id="@+id/tv_shop_arrow"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:text=" > "
+        android:textColor="@color/white"
+        android:textSize="17sp"/>
+
+    <TextView
+        android:id="@+id/tv_shop_name"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@id/tv_shop_arrow"
+        android:maxLines="1"
+        android:text="协议只写饱饭阿斯顿飞"
+        android:textColor="@color/white"
+        android:textSize="17sp"
+        android:textStyle="bold"/>
+
+    <TextView
+        android:id="@+id/tv_shop_summary"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_shop_name"
+        android:layout_marginTop="4dp"
+        android:maxLines="1"
+        android:textSize="11sp"
+        android:text="adsfasdfdasfasdfdas"
+        android:textColor="@color/darkgray"/>
+
+    <TextView
+        android:id="@+id/tv_shop_type"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_shop_summary"
+        android:layout_marginTop="4dp"
+        android:background="@color/yellow"
+        android:maxLines="1"
+        android:paddingLeft="2dp"
+        android:paddingRight="2dp"
+        android:text="品牌"
+        android:textStyle="bold"
+        android:textColor="@color/black"
+        android:textSize="11sp"/>
+
+    <TextView
+        android:id="@+id/tv_shop_send"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/tv_shop_summary"
+        android:layout_marginLeft="4dp"
+        android:layout_marginTop="4dp"
+        android:layout_toRightOf="@id/tv_shop_type"
+        android:background="@color/dodgerblue"
+        android:maxLines="1"
+        android:paddingLeft="2dp"
+        android:paddingRight="2dp"
+        android:text="品牌品牌品牌品牌"
+        android:textColor="@color/white"
+        android:textSize="11sp"/>
+</RelativeLayout>
