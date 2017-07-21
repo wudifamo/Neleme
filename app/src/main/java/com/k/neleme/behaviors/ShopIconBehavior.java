@@ -33,8 +33,8 @@ public class ShopIconBehavior extends CoordinatorLayout.Behavior<SimpleDraweeVie
 		if (startHeight > 0) {
 			// 图片大小
 			int dTop = dependency.getTop();
-			child.setX(startX + dTop / 2);
-			child.setY(startY + dTop / 2);
+//			child.setX(startX + dTop / 4);
+			child.setY(startY + dTop / 4);
 			CoordinatorLayout.LayoutParams lp = (CoordinatorLayout.LayoutParams) child.getLayoutParams();
 			lp.width = startWidth + dTop / 2;
 			lp.height = startHeight + dTop / 2;

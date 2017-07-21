@@ -301,4 +301,11 @@
     <!-- 暗蓝色 -->
     <color name="navy">#000080</color>
     <!-- 海军色 -->
+    <color name="dicator_line_blue">#69B5F0</color>
+    <color name="normal_text">#323232</color>
+    <color name="type_gray">#f8f8f8</color>
+    <color name="type_normal">#6b6b6b</color>
+    <color name="type_checked">#535353</color>
+    <color name="divider_gray">#fafafa</color>
+    <color name="dividerColor">#BDBDBD</color>
 </resources>
