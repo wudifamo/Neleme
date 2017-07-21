@@ -3,18 +3,17 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
 
-    <TextView
+    <ImageView
         android:id="@+id/tv_shop_arrow"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:text=" > "
-        android:textColor="@color/white"
-        android:textSize="17sp"/>
+        android:src="@drawable/icon_arrow"
+        android:layout_alignParentRight="true"/>
 
     <TextView
         android:id="@+id/tv_shop_name"
         android:layout_width="match_parent"
+        android:layout_alignTop="@id/tv_shop_arrow"
         android:layout_height="wrap_content"
         android:layout_toLeftOf="@id/tv_shop_arrow"
         android:maxLines="1"

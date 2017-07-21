@@ -97,7 +97,23 @@
                 android:paddingTop="25dp"
                 app:layout_collapseMode="pin"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-                app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"/>
+                app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="10dp"
+                    android:layout_gravity="right"
+                    android:src="@drawable/icon_menu"/>
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_marginRight="16dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="right"
+                    android:src="@drawable/icon_car"/>
+
+            </android.support.v7.widget.Toolbar>
 
         </android.support.design.widget.CollapsingToolbarLayout>
 
@@ -119,7 +135,7 @@
         android:layout_height="80dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="81dp"
-        android:elevation="4dp"
+        app:roundedCornerRadius="2dp"
         app:layout_behavior="com.k.neleme.behaviors.ShopIconBehavior"
         app:placeholderImageScaleType="centerCrop"/>
 

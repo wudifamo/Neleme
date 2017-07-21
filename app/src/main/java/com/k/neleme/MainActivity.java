@@ -37,7 +37,6 @@ import com.shizhefei.view.indicator.transition.OnTransitionTextListener;
 public class MainActivity extends AppCompatActivity implements AddWidget.OnAddClick {
 
 	private Context mContext = this;
-	private SimpleDraweeView iv_shop;
 	private ImageView iv_shop_car;
 	private int shopWidth;
 	private int[] carLoc;
@@ -56,7 +55,7 @@ public class MainActivity extends AppCompatActivity implements AddWidget.OnAddCl
 		setSupportActionBar(toolbar);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 		ViewUtils.getBlurFresco(mContext, (SimpleDraweeView) findViewById(R.id.iv_shop_bg), "res:///" + R.drawable.icon_shop);
-		iv_shop = (SimpleDraweeView) findViewById(R.id.iv_shop);
+		SimpleDraweeView iv_shop = (SimpleDraweeView) findViewById(R.id.iv_shop);
 		ViewUtils.getFrescoController(mContext, iv_shop, "res:///" + R.drawable.icon_shop, 40, 40);
 		initViewpager();
 		initRecyclerView();
@@ -86,7 +85,7 @@ public class MainActivity extends AppCompatActivity implements AddWidget.OnAddCl
 		private LayoutInflater inflater;
 		private int padding;
 
-		public ViewpagerAdapter(FragmentManager fragmentManager) {
+		ViewpagerAdapter(FragmentManager fragmentManager) {
 			super(fragmentManager);
 			inflater = LayoutInflater.from(mContext);
 			padding = ViewUtils.dip2px(mContext, 20);
