@@ -6,11 +6,12 @@ import android.os.Bundle;
 import com.k.neleme.MainActivity;
 import com.k.neleme.R;
 import com.k.neleme.Views.ListContainer;
+import com.k.neleme.adapters.FoodAdapter;
 import com.shizhefei.fragment.LazyFragment;
 
 public class FirstFragment extends LazyFragment {
 
-	public ListContainer listContainer;
+	private ListContainer listContainer;
 
 	@Override
 	protected void onCreateViewLazy(Bundle savedInstanceState) {
@@ -20,4 +21,9 @@ public class FirstFragment extends LazyFragment {
 		listContainer.setAddClick((MainActivity) getActivity());
 
 	}
+
+	public FoodAdapter getFoodAdapter(){
+		return listContainer.foodAdapter;
+	}
+
 }

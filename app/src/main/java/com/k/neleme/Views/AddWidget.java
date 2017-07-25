@@ -11,24 +11,28 @@ import android.view.animation.DecelerateInterpolator;
 import android.widget.FrameLayout;
 import android.widget.TextView;
 
+import com.chad.library.adapter.base.BaseQuickAdapter;
 import com.github.florent37.viewanimator.ViewAnimator;
 import com.k.neleme.R;
+import com.k.neleme.adapters.FoodAdapter;
+import com.k.neleme.bean.FoodBean;
 
 public class AddWidget extends FrameLayout {
 
 	private View add, sub;
 	private TextView tv_count;
-	private int count;
+	private int position;
+	private long count;
+	private BaseQuickAdapter foodAdapter;
 
 	public interface OnAddClick {
-		void onAddClick(View view);
+		void onAddClick(View view, FoodBean fb);
+
+		void onSubClick(FoodBean fb);
 	}
 
 	private OnAddClick onAddClick;
 
-	public void setOnAddClick(OnAddClick onAddClick) {
-		this.onAddClick = onAddClick;
-	}
 
 	public AddWidget(@NonNull Context context) {
 		super(context);
@@ -59,17 +63,20 @@ public class AddWidget extends FrameLayout {
 							.start()
 					;
 				}
-				if (onAddClick != null) {
-					onAddClick.onAddClick(v);
-				}
 				count++;
+				FoodBean fb = (FoodBean) foodAdapter.getItem(position);
+				fb.setSelectCount(count);
+				foodAdapter.setData(position, fb);
+				if (onAddClick != null) {
+					onAddClick.onAddClick(v, fb);
+				}
 				tv_count.setText(count + "");
 			}
 		});
 		sub.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
-				if (count == 1) {
+				if (count == 1 && foodAdapter instanceof FoodAdapter) {
 					ViewAnimator.animate(sub)
 							.translationX(0, add.getLeft() - sub.getLeft())
 							.rotation(-360)
@@ -86,8 +93,31 @@ public class AddWidget extends FrameLayout {
 					;
 				}
 				count--;
+				FoodBean fb = (FoodBean) foodAdapter.getItem(position);
+				fb.setSelectCount(count);
+				foodAdapter.setData(position, fb);
+				if (onAddClick != null) {
+					onAddClick.onSubClick(fb);
+				}
 				tv_count.setText(count == 0 ? "1" : count + "");
 			}
 		});
 	}
+
+	public void setData(BaseQuickAdapter fa, int c, OnAddClick onAddClick) {
+		foodAdapter = fa;
+		position = c;
+		this.onAddClick = onAddClick;
+		FoodBean flist = (FoodBean) fa.getData().get(c);
+		count = flist.getSelectCount();
+		if (count == 0) {
+			sub.setAlpha(0);
+			tv_count.setAlpha(0);
+		} else {
+			sub.setAlpha(1f);
+			tv_count.setAlpha(1f);
+			tv_count.setText(count + "");
+		}
+	}
+
 }

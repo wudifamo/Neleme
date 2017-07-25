@@ -6,7 +6,6 @@ import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.transition.TransitionManager;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
@@ -52,7 +51,6 @@ public final class FlingBehavior extends AppBarLayout.Behavior implements AppBar
 	@Override
 	public void onNestedPreScroll(CoordinatorLayout coordinatorLayout, AppBarLayout child, View target,
 								  int velocityX, int velocityY, int[] consumed) {
-		Log.i("---", velocityY + "");
 		why = true;
 		if (ll_cut != null && ((velocityY > 0 && ll_cut.getHeight() > cutHeight) || (velocityY < 0 && currentOffset == 0))) {
 			if ((lastY > 0 && velocityY < 0) || (lastY < 0) && velocityY > 0) {

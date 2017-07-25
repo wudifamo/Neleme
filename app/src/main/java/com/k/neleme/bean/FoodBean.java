@@ -1,16 +1,27 @@
 package com.k.neleme.bean;
 
 
+import java.math.BigDecimal;
+
 public class FoodBean {
 
 	private int id;
 	private String name;//名
 	private String sale;//销量
 	private String isCommand;//是否推荐
-	private double price;//价格
+	private BigDecimal price;//价格
 	private String cut;//打折
 	private String type;//类
 	private int icon;//图片
+	private long selectCount;
+
+	public long getSelectCount() {
+		return selectCount;
+	}
+
+	public void setSelectCount(long selectCount) {
+		this.selectCount = selectCount;
+	}
 
 	public int getIcon() {
 		return icon;
@@ -52,11 +63,11 @@ public class FoodBean {
 		this.isCommand = isCommand;
 	}
 
-	public double getPrice() {
+	public BigDecimal getPrice() {
 		return price;
 	}
 
-	public void setPrice(double price) {
+	public void setPrice(BigDecimal price) {
 		this.price = price;
 	}
 

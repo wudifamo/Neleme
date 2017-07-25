@@ -6,6 +6,7 @@ import android.content.Context;
 import com.k.neleme.bean.FoodBean;
 import com.k.neleme.bean.TypeBean;
 
+import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
@@ -29,7 +30,7 @@ public class BaseUtils {
 			FoodBean foodBean = new FoodBean();
 			foodBean.setId(i);
 			foodBean.setName("食品--" + i + 1);
-			foodBean.setPrice(Double.valueOf(df.format(new Random().nextDouble() * 100)));
+			foodBean.setPrice(BigDecimal.valueOf((new Random().nextDouble() * 100)).setScale(1,BigDecimal.ROUND_HALF_DOWN));
 			foodBean.setSale("月售" + new Random().nextInt(100));
 			foodBean.setType("类别" + i / 10);
 			int resID = context.getResources().getIdentifier("food" + new Random().nextInt(8), "drawable", "com.k.neleme");

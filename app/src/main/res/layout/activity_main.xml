@@ -102,15 +102,15 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
                     android:layout_gravity="right"
+                    android:layout_marginRight="10dp"
                     android:src="@drawable/icon_menu"/>
 
                 <ImageView
                     android:layout_width="wrap_content"
-                    android:layout_marginRight="16dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="right"
+                    android:layout_marginRight="16dp"
                     android:src="@drawable/icon_car"/>
 
             </android.support.v7.widget.Toolbar>
@@ -135,9 +135,9 @@
         android:layout_height="80dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="81dp"
-        app:roundedCornerRadius="2dp"
         app:layout_behavior="com.k.neleme.behaviors.ShopIconBehavior"
-        app:placeholderImageScaleType="centerCrop"/>
+        app:placeholderImageScaleType="centerCrop"
+        app:roundedCornerRadius="2dp"/>
 
     <com.k.neleme.Views.ShopInfoContainer
         android:layout_width="match_parent"
@@ -154,19 +154,36 @@
         android:layout_height="match_parent"
         app:layout_behavior="com.k.neleme.behaviors.ScrollBehavior"/>
 
+    <View
+        android:id="@+id/blackview"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="50dp"
+        android:background="#60000000"
+        android:elevation="4dp"
+        android:onClick="toggleCar"
+        android:visibility="gone">
+    </View>
+
+    <include layout="@layout/view_carpop"/>
+
     <FrameLayout
         android:layout_width="match_parent"
         android:layout_height="65dp"
         android:layout_gravity="bottom"
-        android:gravity="bottom">
+        android:elevation="4dp"
+        android:gravity="bottom"
+        android:onClick="toggleCar">
 
         <RelativeLayout
+            android:id="@+id/car_rl"
             android:layout_width="match_parent"
             android:layout_height="50dp"
             android:layout_gravity="bottom"
             android:background="#454545">
 
             <TextView
+                android:id="@+id/car_nonselect"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
@@ -176,15 +193,43 @@
                 android:textSize="13sp"
                 android:textStyle="bold"/>
 
+            <LinearLayout
+                android:id="@+id/amount_container"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_marginLeft="80dp"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/tv_amount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textStyle="bold"
+                    android:textColor="@color/white"
+                    android:textSize="18sp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="另需配送费¥4元"
+                    android:textColor="@color/white"
+                    android:textSize="10sp"/>
+            </LinearLayout>
+
             <TextView
+                android:id="@+id/car_limit"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
                 android:background="#535353"
+                android:onClick="goAccount"
                 android:gravity="center"
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp"
-                android:text="123213213"
+                android:text="¥20 起送"
                 android:textColor="#a8a8a8"
                 android:textSize="16sp"
                 android:textStyle="bold"/>

@@ -33,7 +33,7 @@ public class FoodAdapter extends BaseQuickAdapter<FoodBean, BaseViewHolder> {
 				.setImageResource(R.id.iv_food, item.getIcon())
 		;
 		AddWidget addWidget = helper.getView(R.id.addwidget);
-		addWidget.setOnAddClick(onAddClick);
+		addWidget.setData(this, helper.getAdapterPosition(), onAddClick);
 
 		if (helper.getAdapterPosition() == 0) {
 			helper.setVisible(R.id.stick_header, true)

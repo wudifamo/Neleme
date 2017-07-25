@@ -15,6 +15,7 @@ import com.facebook.imagepipeline.request.ImageRequestBuilder;
 import jp.wasabeef.fresco.processors.BlurPostprocessor;
 
 public class ViewUtils {
+	private static long lastClickTime;
 
 	public static void getFrescoController(Context context, SimpleDraweeView imgIv, String uri, int width, int height) {
 		if (uri != null) {
@@ -57,5 +58,14 @@ public class ViewUtils {
 			result = mContext.getResources().getDimensionPixelSize(resourceId);
 		}
 		return result;
+	}
+
+	public synchronized static boolean isFastClick() {
+		long time = System.currentTimeMillis();
+		if ( time - lastClickTime < 500) {
+			return true;
+		}
+		lastClickTime = time;
+		return false;
 	}
 }

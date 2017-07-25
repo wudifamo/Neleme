@@ -9,4 +9,8 @@
         <item name="android:windowTranslucentStatus">true</item>
     </style>
 
+    <style name="add_new_style">
+        <item name="android:windowEnterAnimation">@anim/add_new_in</item>
+        <item name="android:windowExitAnimation">@anim/add_new_out</item>
+    </style>
 </resources>

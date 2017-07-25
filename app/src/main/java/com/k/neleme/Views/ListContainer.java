@@ -3,6 +3,7 @@ package com.k.neleme.Views;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
@@ -17,6 +18,7 @@ import com.k.neleme.adapters.FoodAdapter;
 import com.k.neleme.adapters.TypeAdapter;
 import com.k.neleme.bean.FoodBean;
 import com.k.neleme.utils.BaseUtils;
+import com.k.neleme.utils.ViewUtils;
 
 import java.util.List;
 
@@ -28,6 +30,8 @@ public class ListContainer extends LinearLayout {
 	private List<FoodBean> foodBeanList;
 	private boolean move;
 	private int index;
+	private Context mContext;
+	public FoodAdapter foodAdapter;
 
 	public ListContainer(Context context) {
 		super(context);
@@ -35,16 +39,22 @@ public class ListContainer extends LinearLayout {
 
 	public ListContainer(Context context, @Nullable AttributeSet attrs) {
 		super(context, attrs);
-		inflate(context, R.layout.view_listcontainer, this);
+		mContext = context;
+		inflate(mContext, R.layout.view_listcontainer, this);
 		RecyclerView recyclerView1 = (RecyclerView) findViewById(R.id.recycler1);
-		recyclerView1.setLayoutManager(new LinearLayoutManager(context));
+		recyclerView1.setLayoutManager(new LinearLayoutManager(mContext));
 		typeAdapter = new TypeAdapter(BaseUtils.getTypes());
-		recyclerView1.setAdapter(typeAdapter);
-		recyclerView1.addItemDecoration(new SimpleDividerDecoration(context));
+		View view = new View(mContext);
+		view.setMinimumHeight(ViewUtils.dip2px(mContext, 50));
+		typeAdapter.addFooterView(view);
+		typeAdapter.bindToRecyclerView(recyclerView1);
+		recyclerView1.addItemDecoration(new SimpleDividerDecoration(mContext));
+		((DefaultItemAnimator) recyclerView1.getItemAnimator()).setSupportsChangeAnimations(false);
 		recyclerView1.addOnItemTouchListener(new OnItemClickListener() {
 			@Override
 			public void onSimpleItemClick(BaseQuickAdapter baseQuickAdapter, View view, int i) {
 				if (recyclerView2.getScrollState() == RecyclerView.SCROLL_STATE_IDLE) {
+					typeAdapter.fromClick = true;
 					typeAdapter.setChecked(i);
 					String type = view.getTag().toString();
 					for (int ii = 0; ii < foodBeanList.size(); ii++) {
@@ -59,9 +69,10 @@ public class ListContainer extends LinearLayout {
 			}
 		});
 		recyclerView2 = (RecyclerView) findViewById(R.id.recycler2);
-		linearLayoutManager = new LinearLayoutManager(context);
+		linearLayoutManager = new LinearLayoutManager(mContext);
 		recyclerView2.setLayoutManager(linearLayoutManager);
-		foodBeanList = BaseUtils.getDatas(context);
+		((DefaultItemAnimator) recyclerView2.getItemAnimator()).setSupportsChangeAnimations(false);
+		foodBeanList = BaseUtils.getDatas(mContext);
 
 	}
 
@@ -86,7 +97,10 @@ public class ListContainer extends LinearLayout {
 	}
 
 	public void setAddClick(AddWidget.OnAddClick onAddClick) {
-		FoodAdapter foodAdapter = new FoodAdapter(foodBeanList, onAddClick);
+		foodAdapter = new FoodAdapter(foodBeanList, onAddClick);
+		View view = new View(mContext);
+		view.setMinimumHeight(ViewUtils.dip2px(mContext, 50));
+		foodAdapter.addFooterView(view);
 		recyclerView2.setAdapter(foodAdapter);
 		final View stickView = findViewById(R.id.stick_header);
 		final TextView tvStickyHeaderView = (TextView) stickView.findViewById(R.id.tv_header);
@@ -108,6 +122,7 @@ public class ListContainer extends LinearLayout {
 					View stickyInfoView = recyclerView.findChildViewUnder(stickView.getMeasuredWidth() / 2, 5);
 					if (stickyInfoView != null && stickyInfoView.getContentDescription() != null) {
 						tvStickyHeaderView.setText(String.valueOf(stickyInfoView.getContentDescription()));
+						typeAdapter.setType(String.valueOf(stickyInfoView.getContentDescription()));
 					}
 
 					View transInfoView = recyclerView.findChildViewUnder(stickView.getMeasuredWidth() / 2, stickView.getMeasuredHeight
@@ -115,7 +130,6 @@ public class ListContainer extends LinearLayout {
 					if (transInfoView != null && transInfoView.getTag() != null) {
 						int transViewStatus = (int) transInfoView.getTag();
 						int dealtY = transInfoView.getTop() - stickView.getMeasuredHeight();
-
 						if (transViewStatus == FoodAdapter.HAS_STICKY_VIEW) {
 							if (transInfoView.getTop() > 0) {
 								stickView.setTranslationY(dealtY);
