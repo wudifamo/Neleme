@@ -12,147 +12,119 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
+        android:paddingTop="25dp"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-        app:layout_behavior="com.k.neleme.behaviors.FlingBehavior">
+        app:layout_behavior="com.k.neleme.behaviors.AppBarBehavior">
 
         <android.support.design.widget.CollapsingToolbarLayout
             android:id="@+id/collapsing_toolbar"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="125dp"
             app:layout_scrollFlags="scroll|exitUntilCollapsed">
 
-            <LinearLayout
-                android:id="@+id/ll_cut"
-                android:layout_width="match_parent"
-                android:layout_height="51dp"
-                android:layout_marginTop="150dp"
-                android:background="@color/pink"
-                android:orientation="vertical"
-                android:padding="8dp">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <TextView
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
-                        android:text="放大发送发送发大水发送"
-                        android:textColor="@color/black"/>
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:onClick="expendCut"
-                        android:text="8个活动"/>
-                </LinearLayout>
-
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="放大发送发送发大水发送"
-                    android:textColor="@color/black"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="放大发送发送发大水发送"
-                    android:textColor="@color/black"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="放大发送发送发大水发送"
-                    android:textColor="@color/black"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="放大发送发送发大水发送"
-                    android:textColor="@color/black"/>
-
-                <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:text="放大发送发送发大水发送"
-                    android:textColor="@color/black"/>
-            </LinearLayout>
-
-            <com.facebook.drawee.view.SimpleDraweeView
-                android:id="@+id/iv_shop_bg"
-                android:layout_width="match_parent"
-                android:layout_height="150dp"
-                app:layout_collapseMode="parallax"
-                app:layout_collapseParallaxMultiplier="0.421"/>
-
-
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:minHeight="?attr/actionBarSize"
-                android:paddingTop="25dp"
-                app:layout_collapseMode="pin"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-                app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:layout_marginRight="10dp"
-                    android:src="@drawable/icon_menu"/>
-
-                <ImageView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:layout_marginRight="16dp"
-                    android:src="@drawable/icon_car"/>
-
-            </android.support.v7.widget.Toolbar>
 
         </android.support.design.widget.CollapsingToolbarLayout>
-
-        <com.shizhefei.view.indicator.ScrollIndicatorView
-            android:id="@+id/indicator"
-            android:layout_width="match_parent"
-            android:layout_height="40dp"/>
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="1px"
-            android:background="@color/lightgray"/>
     </android.support.design.widget.AppBarLayout>
 
+    <LinearLayout
+        android:id="@+id/ll_cut"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="8dp"
+        app:layout_behavior="@string/scroll_behavior">
 
-    <com.facebook.drawee.view.SimpleDraweeView
-        android:id="@+id/iv_shop"
-        android:layout_width="80dp"
-        android:layout_height="80dp"
-        android:layout_marginLeft="16dp"
-        android:layout_marginTop="81dp"
-        app:layout_behavior="com.k.neleme.behaviors.ShopIconBehavior"
-        app:placeholderImageScaleType="centerCrop"
-        app:roundedCornerRadius="2dp"/>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal">
+
+            <TextView
+                style="@style/cut_style"
+                android:layout_width="0dp"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:onClick="expendCut"
+                android:text="8个活动"
+                android:textSize="11sp"/>
+        </LinearLayout>
+
+        <TextView
+            style="@style/cut_style"/>
+
+        <TextView
+            style="@style/cut_style"/>
+
+        <TextView
+            style="@style/cut_style"/>
+
+        <TextView
+            style="@style/cut_style"/>
+
+        <TextView
+            style="@style/cut_style"/>
+
+        <TextView
+            style="@style/cut_style"/>
+    </LinearLayout>
 
     <com.k.neleme.Views.ShopInfoContainer
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="104dp"
-        android:layout_marginRight="16dp"
-        android:layout_marginTop="81dp"
-        android:elevation="4dp"
         app:layout_behavior="com.k.neleme.behaviors.ShopContainerBehavior"/>
 
-    <android.support.v4.view.ViewPager
-        android:id="@+id/viewpager"
+    <android.support.v7.widget.Toolbar
+        android:id="@+id/toolbar"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:layout_behavior="com.k.neleme.behaviors.ScrollBehavior"/>
+        android:layout_height="wrap_content"
+        android:minHeight="?attr/actionBarSize"
+        android:paddingTop="25dp"
+        app:layout_collapseMode="pin"
+        app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+        app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginRight="10dp"
+            android:src="@drawable/icon_menu"/>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            android:layout_marginRight="16dp"
+            android:src="@drawable/icon_car"/>
+
+    </android.support.v7.widget.Toolbar>
+
+    <LinearLayout
+        android:id="@+id/scroll_container"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/cut_margin"
+        android:orientation="vertical"
+        app:layout_behavior="@string/scroll_behavior">
+
+        <com.shizhefei.view.indicator.ScrollIndicatorView
+            android:id="@+id/indicator"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:background="@drawable/underline"/>
+
+
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/white"
+            android:overScrollMode="never"/>
+    </LinearLayout>
 
     <View
         android:id="@+id/blackview"
@@ -207,9 +179,9 @@
                     android:id="@+id/tv_amount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textStyle="bold"
                     android:textColor="@color/white"
-                    android:textSize="18sp"/>
+                    android:textSize="18sp"
+                    android:textStyle="bold"/>
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -225,8 +197,8 @@
                 android:layout_height="match_parent"
                 android:layout_alignParentRight="true"
                 android:background="#535353"
-                android:onClick="goAccount"
                 android:gravity="center"
+                android:onClick="goAccount"
                 android:paddingLeft="8dp"
                 android:paddingRight="8dp"
                 android:text="¥20 起送"
@@ -243,6 +215,12 @@
             android:layout_marginBottom="8dp"
             android:layout_marginLeft="10dp"
             android:src="@drawable/shop_car_empty"/>
+
+        <TextView
+            android:id="@+id/car_badge"
+            style="@style/badge_style"
+            android:layout_marginLeft="52dp"
+            android:layout_marginTop="5dp"/>
     </FrameLayout>
 
 </android.support.design.widget.CoordinatorLayout>

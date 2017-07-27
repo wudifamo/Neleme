@@ -1,66 +1,100 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+             xmlns:app="http://schemas.android.com/apk/res-auto"
+             android:layout_width="match_parent"
+             android:layout_height="wrap_content">
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/iv_shop_bg"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"/>
+
+    <com.facebook.drawee.view.SimpleDraweeView
+        android:id="@+id/iv_shop"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="81dp"
+        app:placeholderImageScaleType="centerCrop"
+        app:roundedCornerRadius="2dp"/>
 
     <ImageView
-        android:id="@+id/tv_shop_arrow"
+        android:id="@+id/iv_pin"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:src="@drawable/icon_arrow"
-        android:layout_alignParentRight="true"/>
+        android:layout_height="56dp"
+        android:layout_gravity="right"
+        android:layout_marginRight="90dp"
+        android:layout_marginTop="25dp"
+        android:scaleType="center"
+        android:src="@drawable/icon_pin"/>
 
-    <TextView
-        android:id="@+id/tv_shop_name"
-        android:layout_width="match_parent"
-        android:layout_alignTop="@id/tv_shop_arrow"
-        android:layout_height="wrap_content"
-        android:layout_toLeftOf="@id/tv_shop_arrow"
-        android:maxLines="1"
-        android:text="协议只写饱饭阿斯顿飞"
-        android:textColor="@color/white"
-        android:textSize="17sp"
-        android:textStyle="bold"/>
-
-    <TextView
-        android:id="@+id/tv_shop_summary"
+    <RelativeLayout
+        android:id="@+id/name_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/tv_shop_name"
-        android:layout_marginTop="4dp"
-        android:maxLines="1"
-        android:textSize="11sp"
-        android:text="adsfasdfdasfasdfdas"
-        android:textColor="@color/darkgray"/>
+        android:layout_marginLeft="104dp"
+        android:layout_marginRight="16dp"
+        android:layout_marginTop="81dp">
 
-    <TextView
-        android:id="@+id/tv_shop_type"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tv_shop_summary"
-        android:layout_marginTop="4dp"
-        android:background="@color/yellow"
-        android:maxLines="1"
-        android:paddingLeft="2dp"
-        android:paddingRight="2dp"
-        android:text="品牌"
-        android:textStyle="bold"
-        android:textColor="@color/black"
-        android:textSize="11sp"/>
+        <ImageView
+            android:id="@+id/tv_shop_arrow"
+            android:layout_width="wrap_content"
+            android:layout_height="22dp"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/icon_arrow"/>
 
-    <TextView
-        android:id="@+id/tv_shop_send"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/tv_shop_summary"
-        android:layout_marginLeft="4dp"
-        android:layout_marginTop="4dp"
-        android:layout_toRightOf="@id/tv_shop_type"
-        android:background="@color/dodgerblue"
-        android:maxLines="1"
-        android:paddingLeft="2dp"
-        android:paddingRight="2dp"
-        android:text="品牌品牌品牌品牌"
-        android:textColor="@color/white"
-        android:textSize="11sp"/>
-</RelativeLayout>
+        <TextView
+            android:id="@+id/tv_shop_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignTop="@id/tv_shop_arrow"
+            android:layout_toLeftOf="@id/tv_shop_arrow"
+            android:maxLines="1"
+            android:text="协议只写饱饭阿斯顿飞"
+            android:textColor="@color/white"
+            android:textSize="17sp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/tv_shop_summary"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_shop_name"
+            android:layout_marginTop="4dp"
+            android:maxLines="1"
+            android:text="adsfasdfdasfasdfdas"
+            android:textColor="@color/darkgray"
+            android:textSize="11sp"/>
+
+        <TextView
+            android:id="@+id/tv_shop_type"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_shop_summary"
+            android:layout_marginTop="4dp"
+            android:background="@color/yellow"
+            android:maxLines="1"
+            android:paddingLeft="2dp"
+            android:paddingRight="2dp"
+            android:text="品牌"
+            android:textColor="@color/black"
+            android:textSize="11sp"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:id="@+id/tv_shop_send"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/tv_shop_summary"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="4dp"
+            android:layout_toRightOf="@id/tv_shop_type"
+            android:background="@color/dodgerblue"
+            android:maxLines="1"
+            android:paddingLeft="2dp"
+            android:paddingRight="2dp"
+            android:text="蜗牛专送"
+            android:textColor="@color/white"
+            android:textSize="11sp"/>
+    </RelativeLayout>
+</FrameLayout>

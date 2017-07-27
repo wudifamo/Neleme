@@ -15,4 +15,10 @@
         android:textColor="@color/type_normal"
         android:textSize="12sp"/>
 
+    <TextView
+        android:id="@+id/item_badge"
+        style="@style/badge_style"
+        android:layout_gravity="right"
+        android:layout_margin="2dp"/>
+
 </FrameLayout>

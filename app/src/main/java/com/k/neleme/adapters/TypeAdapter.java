@@ -12,6 +12,7 @@ import com.chad.library.adapter.base.BaseViewHolder;
 import com.k.neleme.R;
 import com.k.neleme.bean.TypeBean;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class TypeAdapter extends BaseQuickAdapter<TypeBean, BaseViewHolder> {
@@ -19,11 +20,16 @@ public class TypeAdapter extends BaseQuickAdapter<TypeBean, BaseViewHolder> {
 	private List<TypeBean> data;
 	public boolean fromClick;
 	private String typeStr;
-	private int childHeight;
+	private HashMap<String, Long> badges = new HashMap<>();
 
 	public TypeAdapter(@Nullable List<TypeBean> data) {
 		super(R.layout.item_type, data);
 		this.data = data;
+	}
+
+	public void updateBadge(HashMap<String, Long> badges) {
+		this.badges = badges;
+		notifyDataSetChanged();
 	}
 
 
@@ -36,15 +42,18 @@ public class TypeAdapter extends BaseQuickAdapter<TypeBean, BaseViewHolder> {
 					.setTextColor(R.id.tv_name, Color.BLACK)
 					.setTypeface(R.id.tv_name, Typeface.DEFAULT_BOLD)
 			;
-			if (childHeight == 0) {
-				childHeight = helper.getConvertView().getHeight();
-			}
 		} else {
 			helper.setBackgroundColor(R.id.item_main, ContextCompat.getColor(mContext, R.color.type_gray))
 					.setTextColor(R.id.tv_name, ContextCompat.getColor(mContext, R.color.type_normal))
 					.setTypeface(R.id.tv_name, Typeface.DEFAULT)
 			;
 		}
+		if (badges.containsKey(item.getName()) && badges.get(item.getName()) > 0) {
+			helper.setVisible(R.id.item_badge, true).setText(R.id.item_badge, String.valueOf(badges.get(item.getName())));
+		} else {
+			helper.setVisible(R.id.item_badge, false);
+		}
+
 	}
 
 	public void setChecked(int checked) {
@@ -71,31 +80,27 @@ public class TypeAdapter extends BaseQuickAdapter<TypeBean, BaseViewHolder> {
 	}
 
 	private void moveToPosition(int i) {
-		//先从RecyclerView的LayoutManager中获取第一项和最后一项的Position
 		LinearLayoutManager linlm = (LinearLayoutManager) getRecyclerView().getLayoutManager();
 		int firstItem = linlm.findFirstVisibleItemPosition();
 		int lastItem = linlm.findLastVisibleItemPosition();
-		//然后区分情况
+		if (getItemCount() > 5) {//提前把9滑出来
+			lastItem -= 3;
+		}
 		if (i <= firstItem) {
-			//当要置顶的项在当前显示的第一个项的前面时
 			getRecyclerView().scrollToPosition(i);
 		} else if (i <= lastItem) {
-			//当要置顶的项已经在屏幕上显示时
-			int top = getRecyclerView().getChildAt(i - firstItem).getTop();
-			getRecyclerView().scrollBy(0, top);
+			//当要置顶的项已经在屏幕上显示时不处理
 		} else {
 			//当要置顶的项在当前显示的最后一项的后面时
 			getRecyclerView().scrollToPosition(i);
-			//这里这个变量是用在RecyclerView滚动监听里面的
+			int n = i - linlm.findFirstVisibleItemPosition();
+			if (0 <= n && n < getRecyclerView().getChildCount()) {
+				int top = getRecyclerView().getChildAt(n).getTop();
+				getRecyclerView().smoothScrollBy(0, top);
+			}
 		}
 
-		int n = i - linlm.findFirstVisibleItemPosition();
-		if (0 <= n && n < getRecyclerView().getChildCount()) {
-			//获取要置顶的项顶部离RecyclerView顶部的距离
-			int top = getRecyclerView().getChildAt(n).getTop();
-			//最后的移动
-			getRecyclerView().smoothScrollBy(0, top);
-		}
+
 	}
 
 }

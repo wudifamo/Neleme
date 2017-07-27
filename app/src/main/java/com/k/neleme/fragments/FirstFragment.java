@@ -7,6 +7,7 @@ import com.k.neleme.MainActivity;
 import com.k.neleme.R;
 import com.k.neleme.Views.ListContainer;
 import com.k.neleme.adapters.FoodAdapter;
+import com.k.neleme.adapters.TypeAdapter;
 import com.shizhefei.fragment.LazyFragment;
 
 public class FirstFragment extends LazyFragment {
@@ -24,6 +25,9 @@ public class FirstFragment extends LazyFragment {
 
 	public FoodAdapter getFoodAdapter(){
 		return listContainer.foodAdapter;
+	}
+	public TypeAdapter getTypeAdapter(){
+		return listContainer.typeAdapter;
 	}
 
 }

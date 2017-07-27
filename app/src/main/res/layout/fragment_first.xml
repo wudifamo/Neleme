@@ -5,6 +5,6 @@
     android:id="@+id/listcontainer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    app:layout_behavior="com.k.neleme.behaviors.ScrollBehavior">
+    app:layout_behavior="@string/scroll_behavior">
 
 </com.k.neleme.Views.ListContainer>

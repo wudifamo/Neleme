@@ -7,7 +7,12 @@ import android.support.design.widget.CoordinatorLayout;
 import android.util.AttributeSet;
 import android.view.View;
 
-public class ScrollBehavior extends AppBarLayout.ScrollingViewBehavior{
+import java.lang.ref.WeakReference;
+
+public class ScrollBehavior extends AppBarLayout.ScrollingViewBehavior {
+
+	private WeakReference<View> dependentView;
+
 	public ScrollBehavior() {
 		super();
 	}
@@ -17,13 +22,9 @@ public class ScrollBehavior extends AppBarLayout.ScrollingViewBehavior{
 	}
 
 	@Override
-	public boolean onStartNestedScroll(CoordinatorLayout coordinatorLayout, View child, View directTargetChild, View target, int nestedScrollAxes) {
-
-		return super.onStartNestedScroll(coordinatorLayout, child, directTargetChild, target, nestedScrollAxes);
-	}
-
-	@Override
 	public void onStopNestedScroll(CoordinatorLayout coordinatorLayout, View child, View target) {
 		super.onStopNestedScroll(coordinatorLayout, child, target);
 	}
+
+
 }

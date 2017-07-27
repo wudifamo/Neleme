@@ -4,4 +4,4 @@
           android:layout_height="match_parent"
           android:gravity="center"
           android:textColor="@drawable/selector_movie_detail_text"
-          android:textSize="13sp"/>
+          android:textSize="14sp"/>

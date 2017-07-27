@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Neleme</string>
+    <string name="scroll_behavior">com.k.neleme.behaviors.ScrollBehavior</string>
 </resources>

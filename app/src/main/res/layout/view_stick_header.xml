@@ -11,8 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical"
-        android:layout_marginLeft="16dp"
-        android:text="123213213"/>
+        android:layout_marginLeft="16dp"/>
 
     <View
         android:layout_width="match_parent"

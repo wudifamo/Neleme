@@ -8,12 +8,15 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.k.neleme.R;
+import com.k.neleme.utils.ViewUtils;
 
 public class ShopInfoContainer extends RelativeLayout {
 
 	public TextView shop_name, shop_sum, shop_type, shop_send;
-	private ImageView shop_arrow;
+	private ImageView shop_arrow, iv_pin;
+	private SimpleDraweeView iv_shop;
 
 	public ShopInfoContainer(Context context) {
 		super(context);
@@ -22,11 +25,15 @@ public class ShopInfoContainer extends RelativeLayout {
 	public ShopInfoContainer(Context context, @Nullable AttributeSet attrs) {
 		super(context, attrs);
 		inflate(context, R.layout.view_shopinfo, this);
-		shop_name = (TextView) findViewById(R.id.tv_shop_name);
-		shop_arrow = (ImageView) findViewById(R.id.tv_shop_arrow);
-		shop_sum = (TextView) findViewById(R.id.tv_shop_summary);
-		shop_type = (TextView) findViewById(R.id.tv_shop_type);
-		shop_send = (TextView) findViewById(R.id.tv_shop_send);
+		shop_name = findViewById(R.id.tv_shop_name);
+		shop_arrow = findViewById(R.id.tv_shop_arrow);
+		iv_pin = findViewById(R.id.iv_pin);
+		shop_sum = findViewById(R.id.tv_shop_summary);
+		shop_type = findViewById(R.id.tv_shop_type);
+		shop_send = findViewById(R.id.tv_shop_send);
+		ViewUtils.getBlurFresco(context, (SimpleDraweeView) findViewById(R.id.iv_shop_bg), "res:///" + R.drawable.icon_shop);
+		iv_shop = findViewById(R.id.iv_shop);
+		ViewUtils.getFrescoController(context, iv_shop, "res:///" + R.drawable.icon_shop, 40, 40);
 	}
 
 
@@ -36,5 +43,7 @@ public class ShopInfoContainer extends RelativeLayout {
 		shop_sum.setAlpha(alpha);
 		shop_type.setAlpha(alpha);
 		shop_send.setAlpha(alpha);
+		iv_shop.setAlpha(alpha);
+		iv_pin.setAlpha(alpha);
 	}
 }

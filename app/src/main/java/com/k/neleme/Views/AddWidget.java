@@ -52,14 +52,14 @@ public class AddWidget extends FrameLayout {
 							.translationX(add.getLeft() - sub.getLeft(), 0)
 							.rotation(360)
 							.alpha(0, 255)
-							.duration(200)
+							.duration(300)
 							.interpolator(new DecelerateInterpolator())
 							.andAnimate(tv_count)
 							.translationX(add.getLeft() - tv_count.getLeft(), 0)
 							.rotation(360)
 							.alpha(0, 255)
 							.interpolator(new DecelerateInterpolator())
-							.duration(200)
+							.duration(300)
 							.start()
 					;
 				}
@@ -81,14 +81,14 @@ public class AddWidget extends FrameLayout {
 							.translationX(0, add.getLeft() - sub.getLeft())
 							.rotation(-360)
 							.alpha(255, 0)
-							.duration(200)
+							.duration(300)
 							.interpolator(new AccelerateInterpolator())
 							.andAnimate(tv_count)
 							.translationX(0, add.getLeft() - tv_count.getLeft())
 							.rotation(-360)
 							.alpha(255, 0)
 							.interpolator(new AccelerateInterpolator())
-							.duration(200)
+							.duration(300)
 							.start()
 					;
 				}

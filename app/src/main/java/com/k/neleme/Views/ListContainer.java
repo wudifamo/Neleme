@@ -24,7 +24,7 @@ import java.util.List;
 
 public class ListContainer extends LinearLayout {
 
-	private TypeAdapter typeAdapter;
+	public TypeAdapter typeAdapter;
 	private RecyclerView recyclerView2;
 	private LinearLayoutManager linearLayoutManager;
 	private List<FoodBean> foodBeanList;
@@ -101,7 +101,7 @@ public class ListContainer extends LinearLayout {
 		View view = new View(mContext);
 		view.setMinimumHeight(ViewUtils.dip2px(mContext, 50));
 		foodAdapter.addFooterView(view);
-		recyclerView2.setAdapter(foodAdapter);
+		foodAdapter.bindToRecyclerView(recyclerView2);
 		final View stickView = findViewById(R.id.stick_header);
 		final TextView tvStickyHeaderView = (TextView) stickView.findViewById(R.id.tv_header);
 		recyclerView2.addOnScrollListener(new RecyclerView.OnScrollListener() {

@@ -20,24 +20,22 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
-import android.transition.TransitionManager;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.facebook.drawee.view.SimpleDraweeView;
 import com.github.florent37.viewanimator.AnimationListener;
 import com.github.florent37.viewanimator.ViewAnimator;
 import com.k.neleme.Views.AddWidget;
 import com.k.neleme.adapters.CarAdapter;
 import com.k.neleme.bean.FoodBean;
+import com.k.neleme.behaviors.AppBarBehavior;
 import com.k.neleme.fragments.FirstFragment;
+import com.k.neleme.fragments.SecondFragment;
 import com.k.neleme.utils.ViewUtils;
 import com.shizhefei.view.indicator.IndicatorViewPager;
 import com.shizhefei.view.indicator.ScrollIndicatorView;
@@ -47,6 +45,7 @@ import com.shizhefei.view.indicator.transition.OnTransitionTextListener;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 
@@ -58,10 +57,12 @@ public class MainActivity extends AppCompatActivity implements AddWidget.OnAddCl
 	private int[] carLoc;
 	private CoordinatorLayout rootview;
 	public BottomSheetBehavior behavior;
-	public View blackView;
+	public View blackView, scroll_container;
 	private FirstFragment firstFragment;
 	private CarAdapter carAdapter;
 	private TextView car_limit, tv_amount;
+	private boolean sheetScrolling;
+	private TextView car_badge;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -73,11 +74,9 @@ public class MainActivity extends AppCompatActivity implements AddWidget.OnAddCl
 	private void initViews() {
 		rootview = (CoordinatorLayout) findViewById(R.id.rootview);
 		Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+		toolbar.setTitle("");
 		setSupportActionBar(toolbar);
 		getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-		ViewUtils.getBlurFresco(mContext, (SimpleDraweeView) findViewById(R.id.iv_shop_bg), "res:///" + R.drawable.icon_shop);
-		SimpleDraweeView iv_shop = (SimpleDraweeView) findViewById(R.id.iv_shop);
-		ViewUtils.getFrescoController(mContext, iv_shop, "res:///" + R.drawable.icon_shop, 40, 40);
 		initViewpager();
 		initRecyclerView();
 		initShopCar();
@@ -85,6 +84,7 @@ public class MainActivity extends AppCompatActivity implements AddWidget.OnAddCl
 
 	private void initShopCar() {
 		iv_shop_car = (ImageView) findViewById(R.id.iv_shop_car);
+		car_badge = (TextView) findViewById(R.id.car_badge);
 		car_limit = (TextView) findViewById(R.id.car_limit);
 		tv_amount = (TextView) findViewById(R.id.tv_amount);
 		RecyclerView carRecView = (RecyclerView) findViewById(R.id.car_recyclerview);
@@ -97,6 +97,7 @@ public class MainActivity extends AppCompatActivity implements AddWidget.OnAddCl
 		behavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
 			@Override
 			public void onStateChanged(@NonNull View bottomSheet, int newState) {
+				sheetScrolling = false;
 				if (newState == BottomSheetBehavior.STATE_COLLAPSED || newState == BottomSheetBehavior.STATE_HIDDEN) {
 					blackView.setVisibility(View.GONE);
 				}
@@ -104,6 +105,7 @@ public class MainActivity extends AppCompatActivity implements AddWidget.OnAddCl
 
 			@Override
 			public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+				sheetScrolling = true;
 				blackView.setVisibility(View.VISIBLE);
 				ViewCompat.setAlpha(blackView, slideOffset);
 			}
@@ -111,6 +113,7 @@ public class MainActivity extends AppCompatActivity implements AddWidget.OnAddCl
 	}
 
 	private void initViewpager() {
+		scroll_container = findViewById(R.id.scroll_container);
 		ScrollIndicatorView mSv = (ScrollIndicatorView) findViewById(R.id.indicator);
 		ColorBar colorBar = new ColorBar(mContext, ContextCompat.getColor(mContext, R.color.dicator_line_blue), 6,
 				ScrollBar.Gravity.BOTTOM);
@@ -129,6 +132,7 @@ public class MainActivity extends AppCompatActivity implements AddWidget.OnAddCl
 	private class ViewpagerAdapter extends IndicatorViewPager.IndicatorFragmentPagerAdapter {
 		private LayoutInflater inflater;
 		private int padding;
+		private String[] tabs = new String[]{"商品", "评价"};
 
 		ViewpagerAdapter(FragmentManager fragmentManager) {
 			super(fragmentManager);
@@ -145,7 +149,7 @@ public class MainActivity extends AppCompatActivity implements AddWidget.OnAddCl
 		public View getViewForTab(int position, View convertView, ViewGroup container) {
 			convertView = inflater.inflate(R.layout.item_textview, container, false);
 			TextView textView = (TextView) convertView;
-			textView.setText("商品"); //名称
+			textView.setText(tabs[position]); //名称
 			textView.setPadding(padding, 0, padding, 0);
 			return convertView;
 		}
@@ -156,7 +160,7 @@ public class MainActivity extends AppCompatActivity implements AddWidget.OnAddCl
 				case 0:
 					return firstFragment;
 			}
-			return new FirstFragment();
+			return new SecondFragment();
 		}
 	}
 
@@ -201,7 +205,9 @@ public class MainActivity extends AppCompatActivity implements AddWidget.OnAddCl
 	}
 
 	private void dealCar(FoodBean foodBean) {
+		HashMap<String, Long> typeSelect = new HashMap<>();
 		BigDecimal amount = new BigDecimal(0.0);
+		int total = 0;
 		boolean hasFood = false;
 		if (behavior.getState() == BottomSheetBehavior.STATE_EXPANDED) {
 			firstFragment.getFoodAdapter().notifyDataSetChanged();
@@ -210,13 +216,19 @@ public class MainActivity extends AppCompatActivity implements AddWidget.OnAddCl
 		int p = -1;
 		for (int i = 0; i < flist.size(); i++) {
 			FoodBean fb = flist.get(i);
+			total += fb.getSelectCount();
+			if (typeSelect.containsKey(fb.getType())) {
+				typeSelect.put(fb.getType(), typeSelect.get(fb.getType()) + fb.getSelectCount());
+			} else {
+				typeSelect.put(fb.getType(), fb.getSelectCount());
+			}
 			amount = amount.add(fb.getPrice().multiply(BigDecimal.valueOf(fb.getSelectCount())));
 			if (fb.getId() == foodBean.getId()) {
 				hasFood = true;
 				if (foodBean.getSelectCount() == 0) {
 					p = i;
-				}else {
-					carAdapter.setData(i,foodBean);
+				} else {
+					carAdapter.setData(i, foodBean);
 				}
 			}
 		}
@@ -224,8 +236,21 @@ public class MainActivity extends AppCompatActivity implements AddWidget.OnAddCl
 			carAdapter.remove(p);
 		} else if (!hasFood) {
 			carAdapter.addData(foodBean);
+			if (typeSelect.containsKey(foodBean.getType())) {
+				typeSelect.put(foodBean.getType(), typeSelect.get(foodBean.getType()) + foodBean.getSelectCount());
+			} else {
+				typeSelect.put(foodBean.getType(), foodBean.getSelectCount());
+			}
 			amount = amount.add(foodBean.getPrice().multiply(BigDecimal.valueOf(foodBean.getSelectCount())));
+			total += foodBean.getSelectCount();
 		}
+		if (total > 0) {
+			car_badge.setVisibility(View.VISIBLE);
+			car_badge.setText(total + "");
+		} else {
+			car_badge.setVisibility(View.INVISIBLE);
+		}
+		firstFragment.getTypeAdapter().updateBadge(typeSelect);
 		updateAmount(amount);
 	}
 
@@ -236,6 +261,7 @@ public class MainActivity extends AppCompatActivity implements AddWidget.OnAddCl
 			car_limit.setBackgroundColor(Color.parseColor("#535353"));
 			findViewById(R.id.car_nonselect).setVisibility(View.VISIBLE);
 			findViewById(R.id.amount_container).setVisibility(View.GONE);
+			iv_shop_car.setImageResource(R.drawable.shop_car_empty);
 			behavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
 		} else if (amount.compareTo(new BigDecimal(20.0)) < 0) {
 			car_limit.setText("还差 ¥" + amount + " 起送");
@@ -243,30 +269,31 @@ public class MainActivity extends AppCompatActivity implements AddWidget.OnAddCl
 			car_limit.setBackgroundColor(Color.parseColor("#535353"));
 			findViewById(R.id.car_nonselect).setVisibility(View.GONE);
 			findViewById(R.id.amount_container).setVisibility(View.VISIBLE);
+			iv_shop_car.setImageResource(R.drawable.shop_car);
 		} else {
 			car_limit.setText("     去结算     ");
 			car_limit.setTextColor(Color.WHITE);
 			car_limit.setBackgroundColor(Color.parseColor("#59d178"));
 			findViewById(R.id.car_nonselect).setVisibility(View.GONE);
 			findViewById(R.id.amount_container).setVisibility(View.VISIBLE);
+			iv_shop_car.setImageResource(R.drawable.shop_car);
 		}
 		tv_amount.setText("¥" + amount);
 	}
 
 	public void expendCut(View view) {
-		LinearLayout ll_cut = (LinearLayout) findViewById(R.id.ll_cut);
-		TransitionManager.beginDelayedTransition(rootview);
-		FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) ll_cut.getLayoutParams();
-		if (ll_cut.getHeight() < 400) {
-			params.height = 400;
-		} else {
-			params.height = 153;
+		float cty = scroll_container.getTranslationY();
+		if (!ViewUtils.isFastClick()) {
+			ViewAnimator.animate(scroll_container)
+					.translationY(cty, cty == 0 ? AppBarBehavior.cutExpHeight : 0)
+					.decelerate()
+					.duration(100)
+					.start();
 		}
-		ll_cut.setLayoutParams(params);
 	}
 
 	public void toggleCar(View view) {
-		if (ViewUtils.isFastClick()) {
+		if (sheetScrolling) {
 			return;
 		}
 		if (carAdapter.getItemCount() == 0) {
@@ -299,6 +326,8 @@ public class MainActivity extends AppCompatActivity implements AddWidget.OnAddCl
 						}
 						carAdapter.setNewData(new ArrayList<FoodBean>());
 						firstFragment.getFoodAdapter().notifyDataSetChanged();
+						car_badge.setVisibility(View.INVISIBLE);
+						firstFragment.getTypeAdapter().updateBadge(new HashMap<String, Long>());
 						updateAmount(new BigDecimal(0.0));
 					}
 				})
