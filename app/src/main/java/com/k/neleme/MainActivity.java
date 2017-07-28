@@ -182,7 +182,7 @@ public class MainActivity extends AppCompatActivity implements AddWidget.OnAddCl
 
 		Path path = new Path();
 		path.moveTo(addLoc[0], addLoc[1]);
-		path.quadTo(addLoc[0] - 200, addLoc[1] - 200, carLoc[0], carLoc[1]);
+		path.quadTo(addLoc[0] - 500, addLoc[1] - 200, carLoc[0], carLoc[1]);
 
 		final TextView textView = new TextView(mContext);
 		textView.setBackgroundResource(R.drawable.circle_blue);

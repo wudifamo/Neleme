@@ -16,13 +16,12 @@ import com.k.neleme.utils.ViewUtils;
 /**
  * Created by Administrator on 2016/12/19.
  */
-public final class AppBarBehavior extends AppBarLayout.Behavior implements AppBarLayout.OnOffsetChangedListener {
+public final class AppBarBehavior extends AppBarLayout.Behavior {
 
 	private static final int TOP_CHILD_FLING_THRESHOLD = 3;
 	private boolean isPositive, fromFling;
-	private float currentOffset, mTotalRange;
 	public static int cutExpHeight = -1;
-	public static int cutMaxHeight = -1;
+	private static int cutMaxHeight = -1;
 	private View scroll_container;
 	private Context mContext;
 
@@ -49,9 +48,6 @@ public final class AppBarBehavior extends AppBarLayout.Behavior implements AppBa
 			cutExpHeight = (int) (ll_cut.getHeight() - mContext.getResources().getDimension(R.dimen.cut_margin));
 			cutMaxHeight = ViewUtils.dip2px(mContext, 30) + cutExpHeight;
 			scroll_container = parent.findViewById(R.id.scroll_container);
-			mTotalRange = abl.getTotalScrollRange();
-
-			abl.addOnOffsetChangedListener(this);
 		}
 		return handled;
 
@@ -60,11 +56,11 @@ public final class AppBarBehavior extends AppBarLayout.Behavior implements AppBa
 	@Override
 	public void onNestedPreScroll(CoordinatorLayout coordinatorLayout, AppBarLayout child, View target, int dx, int dy, int[] consumed) {
 		isPositive = dy > 0;
-		Log.i("---", "preScroll->" + dy);
 		float cty = scroll_container.getTranslationY();
-		if (dy > 0 && cty > 0 && currentOffset == 0) {//向上
+		if (dy > 0 && cty > 0 && child.getTop() == 0) {//向上
 			cty -= dy;
-			scroll_container.setTranslationY(cty);
+			Log.i("---", "preScroll->" + dy + "   cty" + cty);
+			scroll_container.setTranslationY(cty < 0 ? 0 : cty);
 			consumed[1] = dy;
 		} else {
 			super.onNestedPreScroll(coordinatorLayout, child, target, dx, dy, consumed);
@@ -75,10 +71,11 @@ public final class AppBarBehavior extends AppBarLayout.Behavior implements AppBa
 	public void onNestedScroll(CoordinatorLayout coordinatorLayout, AppBarLayout child, View target, int dxConsumed, int dyConsumed, int
 			dxUnconsumed, int dyUnconsumed) {
 		Log.i("---", "dyConsumed->" + dyConsumed + "   dyUnconsumed->" + dyUnconsumed);
-		if (dyConsumed == 0 && dyUnconsumed < 0 && currentOffset == 0) {//向下
+		if (dyConsumed == 0 && dyUnconsumed < 0 && child.getTop() == 0) {//向下
 			float cty = scroll_container.getTranslationY();
 			cty = cty - dyUnconsumed > cutMaxHeight ? cutMaxHeight : cty - dyUnconsumed;
 			scroll_container.setTranslationY(cty);
+			return;
 		}
 		super.onNestedScroll(coordinatorLayout, child, target, dxConsumed, dyConsumed, dxUnconsumed, dyUnconsumed);
 	}
@@ -109,6 +106,9 @@ public final class AppBarBehavior extends AppBarLayout.Behavior implements AppBa
 	@Override
 	public void onStopNestedScroll(CoordinatorLayout coordinatorLayout, AppBarLayout abl, View target) {
 		super.onStopNestedScroll(coordinatorLayout, abl, target);
+		if (scroll_container == null) {
+			return;
+		}
 		float cty = scroll_container.getTranslationY();
 		if (cty > 0) {
 			int s = 0;
@@ -122,10 +122,4 @@ public final class AppBarBehavior extends AppBarLayout.Behavior implements AppBa
 					.start();
 		}
 	}
-
-	@Override
-	public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-		currentOffset = verticalOffset;
-	}
-
 }

@@ -76,6 +76,9 @@ public class AddWidget extends FrameLayout {
 		sub.setOnClickListener(new OnClickListener() {
 			@Override
 			public void onClick(View v) {
+				if (count == 0) {
+					return;
+				}
 				if (count == 1 && foodAdapter instanceof FoodAdapter) {
 					ViewAnimator.animate(sub)
 							.translationX(0, add.getLeft() - sub.getLeft())

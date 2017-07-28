@@ -4,6 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/rootview"
     android:layout_width="match_parent"
+    android:splitMotionEvents="false"
     android:layout_height="match_parent"
     android:background="@color/white">
 
@@ -144,13 +145,13 @@
         android:layout_height="65dp"
         android:layout_gravity="bottom"
         android:elevation="4dp"
-        android:gravity="bottom"
-        android:onClick="toggleCar">
+        android:gravity="bottom">
 
         <RelativeLayout
             android:id="@+id/car_rl"
             android:layout_width="match_parent"
             android:layout_height="50dp"
+            android:onClick="toggleCar"
             android:layout_gravity="bottom"
             android:background="#454545">
 
