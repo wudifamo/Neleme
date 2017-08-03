@@ -268,9 +268,6 @@ public class MainActivity extends BaseActivity implements AddWidget.OnAddClick {
 		pButton.setTypeface(Typeface.DEFAULT_BOLD);
 	}
 
-	public void goAccount(View view) {
-	}
-
 	@Override
 	protected void onDestroy() {
 		super.onDestroy();

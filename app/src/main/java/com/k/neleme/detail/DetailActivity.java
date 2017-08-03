@@ -42,6 +42,7 @@ public class DetailActivity extends BaseActivity implements AddWidget.OnAddClick
 	private DetailHeaderBehavior dhb;
 	private View headerView;
 	private int position = -1;
+	private DetailAdapter dAdapter;
 
 	@Override
 	protected int getLayoutId() {
@@ -83,7 +84,7 @@ public class DetailActivity extends BaseActivity implements AddWidget.OnAddClick
 		recyclerView.setLayoutManager(new GridLayoutManager(mContext, 2));
 		recyclerView.addItemDecoration(new SpaceItemDecoration());
 		((DefaultItemAnimator) recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
-		DetailAdapter dAdapter = new DetailAdapter(BaseUtils.getDetails(mContext), this);
+		dAdapter = new DetailAdapter(BaseUtils.getDetails(mContext), this);
 		View header = View.inflate(mContext, R.layout.item_detail_header, null);
 		dAdapter.addHeaderView(header);
 		TextView footer = new TextView(mContext);
@@ -144,6 +145,18 @@ public class DetailActivity extends BaseActivity implements AddWidget.OnAddClick
 		int total = 0;
 		boolean hasFood = false;
 		if (behavior.getState() == BottomSheetBehavior.STATE_EXPANDED) {
+			if (foodBean.getId() == this.foodBean.getId()) {
+				this.foodBean = foodBean;
+				detail_add.expendAdd(foodBean.getSelectCount());
+			}
+			for (int i = 0; i < dAdapter.getData().size(); i++) {
+				FoodBean fb = dAdapter.getItem(i);
+				if (fb.getId() == foodBean.getId()) {
+					fb.setSelectCount(foodBean.getSelectCount());
+					dAdapter.setData(i, fb);
+					break;
+				}
+			}
 //			firstFragment.getFoodAdapter().notifyDataSetChanged();
 //			detail_add.setData();
 		}
@@ -164,7 +177,7 @@ public class DetailActivity extends BaseActivity implements AddWidget.OnAddClick
 		}
 		if (p >= 0) {
 			carAdapter.remove(p);
-		} else if (!hasFood&&foodBean.getSelectCount()>0) {
+		} else if (!hasFood && foodBean.getSelectCount() > 0) {
 			carAdapter.addData(foodBean);
 			amount = amount.add(foodBean.getPrice().multiply(BigDecimal.valueOf(foodBean.getSelectCount())));
 			total += foodBean.getSelectCount();

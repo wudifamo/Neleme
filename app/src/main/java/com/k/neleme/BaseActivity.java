@@ -25,4 +25,7 @@ public abstract class BaseActivity extends AppCompatActivity {
 	public void close(View view) {
 		finish();
 	}
+
+	public void goAccount(View view) {
+	}
 }

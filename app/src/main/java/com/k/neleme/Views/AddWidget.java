@@ -93,28 +93,7 @@ public class AddWidget extends FrameLayout {
 					return;
 				}
 				if (count == 1 && sub_anim) {
-					ViewAnimator.animate(sub)
-							.translationX(0, addbutton.getLeft() - sub.getLeft())
-							.rotation(-360)
-							.alpha(255, 0)
-							.duration(300)
-							.interpolator(new AccelerateInterpolator())
-							.andAnimate(tv_count)
-							.onStop(new AnimationListener.Stop() {
-								@Override
-								public void onStop() {
-									if (circle_anim) {
-										addbutton.expendAnim();
-									}
-								}
-							})
-							.translationX(0, addbutton.getLeft() - tv_count.getLeft())
-							.rotation(-360)
-							.alpha(255, 0)
-							.interpolator(new AccelerateInterpolator())
-							.duration(300)
-							.start()
-					;
+					subAnim();
 				}
 				count--;
 				tv_count.setText(count == 0 ? "1" : count + "");
@@ -124,6 +103,31 @@ public class AddWidget extends FrameLayout {
 				}
 			}
 		});
+	}
+
+	private void subAnim(){
+		ViewAnimator.animate(sub)
+				.translationX(0, addbutton.getLeft() - sub.getLeft())
+				.rotation(-360)
+				.alpha(255, 0)
+				.duration(300)
+				.interpolator(new AccelerateInterpolator())
+				.andAnimate(tv_count)
+				.onStop(new AnimationListener.Stop() {
+					@Override
+					public void onStop() {
+						if (circle_anim) {
+							addbutton.expendAnim();
+						}
+					}
+				})
+				.translationX(0, addbutton.getLeft() - tv_count.getLeft())
+				.rotation(-360)
+				.alpha(255, 0)
+				.interpolator(new AccelerateInterpolator())
+				.duration(300)
+				.start()
+		;
 	}
 
 	public void setData(OnAddClick onAddClick, FoodBean foodBean) {
@@ -140,8 +144,15 @@ public class AddWidget extends FrameLayout {
 		}
 	}
 
-	public void setState(long state) {
-		addbutton.setState(state > 0);
+	public void setState(long count) {
+		addbutton.setState(count > 0);
 	}
 
+	public void expendAdd(long count) {
+		this.count = count;
+		tv_count.setText(count == 0 ? "1" : count + "");
+		if (count == 0) {
+			subAnim();
+		}
+	}
 }
