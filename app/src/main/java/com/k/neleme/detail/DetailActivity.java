@@ -112,6 +112,7 @@ public class DetailActivity extends BaseActivity implements AddWidget.OnAddClick
 		flist.addAll(MainActivity.carAdapter.getData());
 		carAdapter = new CarAdapter(flist, this);
 		carAdapter.bindToRecyclerView(carRecView);
+		handleCommand(foodBean);
 		shopCarView.post(new Runnable() {
 			@Override
 			public void run() {
@@ -149,16 +150,7 @@ public class DetailActivity extends BaseActivity implements AddWidget.OnAddClick
 				this.foodBean = foodBean;
 				detail_add.expendAdd(foodBean.getSelectCount());
 			}
-			for (int i = 0; i < dAdapter.getData().size(); i++) {
-				FoodBean fb = dAdapter.getItem(i);
-				if (fb.getId() == foodBean.getId()) {
-					fb.setSelectCount(foodBean.getSelectCount());
-					dAdapter.setData(i, fb);
-					break;
-				}
-			}
-//			firstFragment.getFoodAdapter().notifyDataSetChanged();
-//			detail_add.setData();
+			handleCommand(foodBean);
 		}
 		List<FoodBean> flist = carAdapter.getData();
 		int p = -1;
@@ -212,4 +204,14 @@ public class DetailActivity extends BaseActivity implements AddWidget.OnAddClick
 
 	}
 
+	private void handleCommand(FoodBean foodBean){
+		for (int i = 0; i < dAdapter.getData().size(); i++) {
+			FoodBean fb = dAdapter.getItem(i);
+			if (fb.getId() == foodBean.getId()) {
+				fb.setSelectCount(foodBean.getSelectCount());
+				dAdapter.setData(i, fb);
+				break;
+			}
+		}
+	}
 }
