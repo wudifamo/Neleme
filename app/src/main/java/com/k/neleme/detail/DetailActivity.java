@@ -145,13 +145,11 @@ public class DetailActivity extends BaseActivity implements AddWidget.OnAddClick
 		BigDecimal amount = new BigDecimal(0.0);
 		int total = 0;
 		boolean hasFood = false;
-		if (behavior.getState() == BottomSheetBehavior.STATE_EXPANDED) {
-			if (foodBean.getId() == this.foodBean.getId()) {
-				this.foodBean = foodBean;
-				detail_add.expendAdd(foodBean.getSelectCount());
-			}
-			handleCommand(foodBean);
+		if (foodBean.getId() == this.foodBean.getId()) {
+			this.foodBean = foodBean;
+			detail_add.expendAdd(foodBean.getSelectCount());
 		}
+		handleCommand(foodBean);
 		List<FoodBean> flist = carAdapter.getData();
 		int p = -1;
 		for (int i = 0; i < flist.size(); i++) {
@@ -204,12 +202,13 @@ public class DetailActivity extends BaseActivity implements AddWidget.OnAddClick
 
 	}
 
-	private void handleCommand(FoodBean foodBean){
+	private void handleCommand(FoodBean foodBean) {
 		for (int i = 0; i < dAdapter.getData().size(); i++) {
 			FoodBean fb = dAdapter.getItem(i);
-			if (fb.getId() == foodBean.getId()) {
+			if (fb.getId() == foodBean.getId() && fb.getSelectCount() != foodBean.getSelectCount()) {
 				fb.setSelectCount(foodBean.getSelectCount());
 				dAdapter.setData(i, fb);
+				dAdapter.notifyItemChanged(i);
 				break;
 			}
 		}
