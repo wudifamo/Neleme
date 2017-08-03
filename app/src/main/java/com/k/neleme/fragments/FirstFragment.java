@@ -20,7 +20,12 @@ public class FirstFragment extends LazyFragment {
 		setContentView(R.layout.fragment_first);
 		listContainer = (ListContainer) findViewById(R.id.listcontainer);
 		listContainer.setAddClick((MainActivity) getActivity());
-
+		double p = 5732.84;
+		double amount = 0;
+		for(int i=0;i<120;i++) {
+			amount += p;
+			p -= 17.22;
+		}
 	}
 
 	public FoodAdapter getFoodAdapter(){

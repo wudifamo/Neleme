@@ -1,9 +1,17 @@
 package com.k.neleme.bean;
 
 
+import android.content.Context;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.style.AbsoluteSizeSpan;
+
+import com.k.neleme.utils.ViewUtils;
+
+import java.io.Serializable;
 import java.math.BigDecimal;
 
-public class FoodBean {
+public class FoodBean implements Serializable{
 
 	private int id;
 	private String name;//名
@@ -65,6 +73,22 @@ public class FoodBean {
 
 	public BigDecimal getPrice() {
 		return price;
+	}
+
+	public SpannableString getStrPrice(Context context) {
+		String priceStr = String.valueOf(getPrice());
+		SpannableString spanString = new SpannableString("¥" + priceStr);
+		AbsoluteSizeSpan span = new AbsoluteSizeSpan(ViewUtils.sp2px(context, 11));
+		spanString.setSpan(span, 0, 1, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+		return spanString;
+	}
+
+	public SpannableString getStrPrice(Context context, BigDecimal price) {
+		String priceStr = String.valueOf(price);
+		SpannableString spanString = new SpannableString("¥" + priceStr);
+		AbsoluteSizeSpan span = new AbsoluteSizeSpan(ViewUtils.sp2px(context, 11));
+		spanString.setSpan(span, 0, 1, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+		return spanString;
 	}
 
 	public void setPrice(BigDecimal price) {

@@ -2,6 +2,7 @@ package com.k.neleme.Views;
 
 
 import android.content.Context;
+import android.content.Intent;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
@@ -17,6 +18,7 @@ import com.k.neleme.R;
 import com.k.neleme.adapters.FoodAdapter;
 import com.k.neleme.adapters.TypeAdapter;
 import com.k.neleme.bean.FoodBean;
+import com.k.neleme.detail.DetailActivity;
 import com.k.neleme.utils.BaseUtils;
 import com.k.neleme.utils.ViewUtils;
 
@@ -41,7 +43,7 @@ public class ListContainer extends LinearLayout {
 		super(context, attrs);
 		mContext = context;
 		inflate(mContext, R.layout.view_listcontainer, this);
-		RecyclerView recyclerView1 = (RecyclerView) findViewById(R.id.recycler1);
+		RecyclerView recyclerView1 = findViewById(R.id.recycler1);
 		recyclerView1.setLayoutManager(new LinearLayoutManager(mContext));
 		typeAdapter = new TypeAdapter(BaseUtils.getTypes());
 		View view = new View(mContext);
@@ -68,12 +70,28 @@ public class ListContainer extends LinearLayout {
 				}
 			}
 		});
-		recyclerView2 = (RecyclerView) findViewById(R.id.recycler2);
+		recyclerView2 = findViewById(R.id.recycler2);
 		linearLayoutManager = new LinearLayoutManager(mContext);
 		recyclerView2.setLayoutManager(linearLayoutManager);
 		((DefaultItemAnimator) recyclerView2.getItemAnimator()).setSupportsChangeAnimations(false);
 		foodBeanList = BaseUtils.getDatas(mContext);
+		recyclerView2.addOnItemTouchListener(new OnItemClickListener() {
+			@Override
+			public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {
+				super.onItemChildClick(adapter, view, position);
+				if (view.getId() == R.id.food_main) {
+					Intent intent = new Intent(mContext, DetailActivity.class);
+					intent.putExtra("food", (FoodBean) adapter.getData().get(position));
+					intent.putExtra("position", position);
+					mContext.startActivity(intent);
+				}
+			}
 
+			@Override
+			public void onSimpleItemClick(BaseQuickAdapter adapter, View view, int position) {
+
+			}
+		});
 	}
 
 	private void moveToPosition(int n) {

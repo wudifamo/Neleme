@@ -1,12 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimary">#2395ff</color>
     <color name="colorPrimaryDark">#303F9F</color>
     <color name="colorAccent">#FF4081</color>
     <color name="white">#FFFFFFFF</color>
     <color name="alphawight">#75FFFFFF</color>
     <color name="black">#000000</color>
     <color name="gray_hint">#5f5f5f</color>
+    <color name="transparent">#00000000</color>
+    <color name="transparent_bg">#80000000</color>
+    <color name="price_red">#ff5339</color>
+    <color name="detail_divider">#eeeeee</color>
+    <color name="detail_like">#ff6000</color>
+    <color name="detail_hint">#bbbbbb</color>
+    <color name="detail_command">#757575</color>
 
     <!-- 蓝绿色 -->
     <color name="bluegreen">#65c1dc</color>

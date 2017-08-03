@@ -1,0 +1,84 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.k.neleme.Views.ShopCarView xmlns:android="http://schemas.android.com/apk/res/android"
+                                android:id="@+id/car_mainfl"
+                                android:layout_width="match_parent"
+                                android:layout_height="@dimen/shopcar_height"
+                                android:layout_gravity="bottom"
+                                android:elevation="4dp"
+                                android:gravity="bottom">
+
+    <RelativeLayout
+        android:id="@+id/car_rl"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_gravity="bottom"
+        android:background="#454545">
+
+        <TextView
+            android:id="@+id/car_nonselect"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="80dp"
+            android:text="未选购商品"
+            android:textColor="#a8a8a8"
+            android:textSize="13sp"
+            android:textStyle="bold"/>
+
+        <LinearLayout
+            android:id="@+id/amount_container"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="80dp"
+            android:gravity="center_vertical"
+            android:orientation="vertical"
+            android:visibility="gone">
+
+            <TextView
+                android:id="@+id/tv_amount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:textSize="18sp"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="另需配送费¥4元"
+                android:textColor="@color/white"
+                android:textSize="10sp"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/car_limit"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:background="#535353"
+            android:gravity="center"
+            android:onClick="goAccount"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:text="¥20 起送"
+            android:textColor="#a8a8a8"
+            android:textSize="16sp"
+            android:textStyle="bold"/>
+
+    </RelativeLayout>
+
+    <ImageView
+        android:id="@+id/iv_shop_car"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="8dp"
+        android:layout_marginLeft="10dp"
+        android:src="@drawable/shop_car_empty"/>
+
+    <TextView
+        android:id="@+id/car_badge"
+        style="@style/badge_style"
+        android:layout_marginLeft="52dp"
+        android:layout_marginTop="5dp"/>
+</com.k.neleme.Views.ShopCarView>

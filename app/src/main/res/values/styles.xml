@@ -7,6 +7,18 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
         <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:scaleType">centerCrop</item>
+    </style>
+
+    <style name="NoTitleTranslucentTheme" parent="@style/AppTheme">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowBackground">@color/transparent_bg</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="toolbarStyle">@style/CustomToolbar</item>
+    </style>
+
+    <style name="CustomToolbar" parent="Widget.AppCompat.Toolbar">
+        <item name="contentInsetStart">0dp</item><!-- 设置该属性边距为0dp-->
     </style>
 
     <style name="add_new_style">
@@ -18,7 +30,7 @@
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:textSize">12sp</item>
-        <item name="android:text">放大发送发送发大水发送</item>
+        <item name="android:text">没什么可送的了就是来凑行数的</item>
         <item name="android:textColor">@color/gray_hint</item>
     </style>
 
@@ -35,7 +47,13 @@
         <item name="android:background">@drawable/badge_bg</item>
         <item name="android:textStyle">bold</item>
         <item name="android:textSize">10sp</item>
+    </style>
 
-
+    <style name="tv_price">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:textColor">@color/price_red</item>
+        <item name="android:textStyle">bold</item>
     </style>
 </resources>

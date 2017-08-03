@@ -6,7 +6,6 @@ import android.support.design.widget.AppBarLayout;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 
 import com.github.florent37.viewanimator.ViewAnimator;
@@ -55,11 +54,13 @@ public final class AppBarBehavior extends AppBarLayout.Behavior {
 
 	@Override
 	public void onNestedPreScroll(CoordinatorLayout coordinatorLayout, AppBarLayout child, View target, int dx, int dy, int[] consumed) {
+		if (scroll_container == null) {
+			return;
+		}
 		isPositive = dy > 0;
 		float cty = scroll_container.getTranslationY();
 		if (dy > 0 && cty > 0 && child.getTop() == 0) {//向上
 			cty -= dy;
-			Log.i("---", "preScroll->" + dy + "   cty" + cty);
 			scroll_container.setTranslationY(cty < 0 ? 0 : cty);
 			consumed[1] = dy;
 		} else {
@@ -70,7 +71,9 @@ public final class AppBarBehavior extends AppBarLayout.Behavior {
 	@Override
 	public void onNestedScroll(CoordinatorLayout coordinatorLayout, AppBarLayout child, View target, int dxConsumed, int dyConsumed, int
 			dxUnconsumed, int dyUnconsumed) {
-		Log.i("---", "dyConsumed->" + dyConsumed + "   dyUnconsumed->" + dyUnconsumed);
+		if (scroll_container == null) {
+			return;
+		}
 		if (dyConsumed == 0 && dyUnconsumed < 0 && child.getTop() == 0) {//向下
 			float cty = scroll_container.getTranslationY();
 			cty = cty - dyUnconsumed > cutMaxHeight ? cutMaxHeight : cty - dyUnconsumed;

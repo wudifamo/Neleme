@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.design.widget.CoordinatorLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:id="@+id/detail_main"
+    android:layout_height="match_parent"
+    tools:context="com.k.neleme.detail.DetailActivity">
+
+    <include layout="@layout/view_detail_header"/>
+
+    <ImageView
+        android:id="@+id/ic_close"
+        android:layout_width="56dp"
+        android:layout_height="56dp"
+        android:layout_marginTop="25dp"
+        android:onClick="close"
+        android:alpha="0"
+        android:elevation="4dp"
+        android:scaleType="centerInside"
+        android:src="@drawable/icon_detail_back"/>
+
+    <TextView
+        android:id="@+id/tv_close"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="70dp"
+        android:alpha="0"
+        android:text="下滑关闭"
+        android:textColor="@color/white"
+        android:textSize="12sp"/>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/detail_recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/whitesmoke"
+        android:overScrollMode="never"
+        app:layout_behavior="@string/scroll_behavior"/>
+
+    <include layout="@layout/view_black"/>
+
+    <include layout="@layout/view_carpop"/>
+
+    <include layout="@layout/view_car"/>
+
+</android.support.design.widget.CoordinatorLayout>
