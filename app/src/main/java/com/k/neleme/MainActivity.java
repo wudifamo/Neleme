@@ -73,14 +73,15 @@ public class MainActivity extends BaseActivity implements AddWidget.OnAddClick {
 		public void onReceive(Context context, Intent intent) {
 			if (CAR_ACTION.equals(intent.getAction())) {
 				FoodBean foodBean = (FoodBean) intent.getSerializableExtra("foodbean");
+				FoodBean fb = foodBean;
 				int p = intent.getIntExtra("position", -1);
 				if (p >= 0 && p < firstFragment.getFoodAdapter().getItemCount()) {
-					FoodBean fb = firstFragment.getFoodAdapter().getItem(p);
+					fb = firstFragment.getFoodAdapter().getItem(p);
 					fb.setSelectCount(foodBean.getSelectCount());
 					firstFragment.getFoodAdapter().setData(p, fb);
 				} else {
 					for (int i = 0; i < firstFragment.getFoodAdapter().getItemCount(); i++) {
-						FoodBean fb = firstFragment.getFoodAdapter().getItem(i);
+						fb = firstFragment.getFoodAdapter().getItem(i);
 						if (fb.getId() == foodBean.getId()) {
 							fb.setSelectCount(foodBean.getSelectCount());
 							firstFragment.getFoodAdapter().setData(i, fb);
@@ -88,7 +89,7 @@ public class MainActivity extends BaseActivity implements AddWidget.OnAddClick {
 						}
 					}
 				}
-				dealCar(foodBean);
+				dealCar(fb);
 			}
 		}
 	};
