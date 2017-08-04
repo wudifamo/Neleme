@@ -1,5 +1,6 @@
 package com.k.neleme.detail;
 
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
@@ -31,6 +32,8 @@ import com.k.neleme.utils.ViewUtils;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.k.neleme.MainActivity.CLEARCAR_ACTION;
 
 public class DetailActivity extends BaseActivity implements AddWidget.OnAddClick {
 	private FoodBean foodBean;
@@ -213,5 +216,22 @@ public class DetailActivity extends BaseActivity implements AddWidget.OnAddClick
 				break;
 			}
 		}
+	}
+
+	public void clearCar(View view) {
+		ViewUtils.showClearCar(mContext, new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				List<FoodBean> flist = carAdapter.getData();
+				for (int i = 0; i < flist.size(); i++) {
+					FoodBean fb = flist.get(i);
+					fb.setSelectCount(0);
+				}
+				carAdapter.setNewData(new ArrayList<FoodBean>());
+				shopCarView.showBadge(0);
+				shopCarView.updateAmount(new BigDecimal(0.0));
+				sendBroadcast(new Intent(CLEARCAR_ACTION));
+			}
+		});
 	}
 }

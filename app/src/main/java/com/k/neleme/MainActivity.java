@@ -5,8 +5,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.graphics.Color;
-import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.CoordinatorLayout;
@@ -14,14 +12,12 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AlertDialog;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import com.github.florent37.viewanimator.ViewAnimator;
@@ -48,6 +44,7 @@ import java.util.List;
 public class MainActivity extends BaseActivity implements AddWidget.OnAddClick {
 
 	public static final String CAR_ACTION = "handleCar";
+	public static final String CLEARCAR_ACTION = "clearCar";
 	private CoordinatorLayout rootview;
 	public BottomSheetBehavior behavior;
 	public View scroll_container;
@@ -65,31 +62,40 @@ public class MainActivity extends BaseActivity implements AddWidget.OnAddClick {
 		super.onCreate(savedInstanceState);
 		initViews();
 		IntentFilter intentFilter = new IntentFilter(CAR_ACTION);
+		intentFilter.addAction(CLEARCAR_ACTION);
 		registerReceiver(broadcastReceiver, intentFilter);
 	}
 
 	BroadcastReceiver broadcastReceiver = new BroadcastReceiver() {
 		@Override
 		public void onReceive(Context context, Intent intent) {
-			if (CAR_ACTION.equals(intent.getAction())) {
-				FoodBean foodBean = (FoodBean) intent.getSerializableExtra("foodbean");
-				FoodBean fb = foodBean;
-				int p = intent.getIntExtra("position", -1);
-				if (p >= 0 && p < firstFragment.getFoodAdapter().getItemCount()) {
-					fb = firstFragment.getFoodAdapter().getItem(p);
-					fb.setSelectCount(foodBean.getSelectCount());
-					firstFragment.getFoodAdapter().setData(p, fb);
-				} else {
-					for (int i = 0; i < firstFragment.getFoodAdapter().getItemCount(); i++) {
-						fb = firstFragment.getFoodAdapter().getItem(i);
-						if (fb.getId() == foodBean.getId()) {
-							fb.setSelectCount(foodBean.getSelectCount());
-							firstFragment.getFoodAdapter().setData(i, fb);
-							break;
+			switch (intent.getAction()) {
+				case CAR_ACTION:
+					FoodBean foodBean = (FoodBean) intent.getSerializableExtra("foodbean");
+					FoodBean fb = foodBean;
+					int p = intent.getIntExtra("position", -1);
+					if (p >= 0 && p < firstFragment.getFoodAdapter().getItemCount()) {
+						fb = firstFragment.getFoodAdapter().getItem(p);
+						fb.setSelectCount(foodBean.getSelectCount());
+						firstFragment.getFoodAdapter().setData(p, fb);
+					} else {
+						for (int i = 0; i < firstFragment.getFoodAdapter().getItemCount(); i++) {
+							fb = firstFragment.getFoodAdapter().getItem(i);
+							if (fb.getId() == foodBean.getId()) {
+								fb.setSelectCount(foodBean.getSelectCount());
+								firstFragment.getFoodAdapter().setData(i, fb);
+								break;
+							}
 						}
 					}
-				}
-				dealCar(fb);
+					dealCar(fb);
+					break;
+				case CLEARCAR_ACTION:
+					clearCar();
+					break;
+			}
+			if (CAR_ACTION.equals(intent.getAction())) {
+
 			}
 		}
 	};
@@ -235,37 +241,25 @@ public class MainActivity extends BaseActivity implements AddWidget.OnAddClick {
 	}
 
 	public void clearCar(View view) {
-		AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-		TextView tv = new TextView(mContext);
-		tv.setText("清空购物车?");
-		tv.setTextSize(14);
-		tv.setPadding(ViewUtils.dip2px(mContext, 16), ViewUtils.dip2px(mContext, 16), 0, 0);
-		tv.setTextColor(Color.parseColor("#757575"));
-		AlertDialog alertDialog = builder
-				.setNegativeButton("取消", null)
-				.setCustomTitle(tv)
-				.setPositiveButton("清空", new DialogInterface.OnClickListener() {
-					@Override
-					public void onClick(DialogInterface dialog, int which) {
-						List<FoodBean> flist = carAdapter.getData();
-						for (int i = 0; i < flist.size(); i++) {
-							FoodBean fb = flist.get(i);
-							fb.setSelectCount(0);
-						}
-						carAdapter.setNewData(new ArrayList<FoodBean>());
-						firstFragment.getFoodAdapter().notifyDataSetChanged();
-						shopCarView.showBadge(0);
-						firstFragment.getTypeAdapter().updateBadge(new HashMap<String, Long>());
-						shopCarView.updateAmount(new BigDecimal(0.0));
-					}
-				})
-				.show();
-		Button nButton = alertDialog.getButton(DialogInterface.BUTTON_NEGATIVE);
-		nButton.setTextColor(ContextCompat.getColor(mContext, R.color.dodgerblue));
-		nButton.setTypeface(Typeface.DEFAULT_BOLD);
-		Button pButton = alertDialog.getButton(DialogInterface.BUTTON_POSITIVE);
-		pButton.setTextColor(ContextCompat.getColor(mContext, R.color.dodgerblue));
-		pButton.setTypeface(Typeface.DEFAULT_BOLD);
+		ViewUtils.showClearCar(mContext, new DialogInterface.OnClickListener() {
+			@Override
+			public void onClick(DialogInterface dialog, int which) {
+				clearCar();
+			}
+		});
+	}
+
+	private void clearCar(){
+		List<FoodBean> flist = carAdapter.getData();
+		for (int i = 0; i < flist.size(); i++) {
+			FoodBean fb = flist.get(i);
+			fb.setSelectCount(0);
+		}
+		carAdapter.setNewData(new ArrayList<FoodBean>());
+		firstFragment.getFoodAdapter().notifyDataSetChanged();
+		shopCarView.showBadge(0);
+		firstFragment.getTypeAdapter().updateBadge(new HashMap<String, Long>());
+		shopCarView.updateAmount(new BigDecimal(0.0));
 	}
 
 	@Override
