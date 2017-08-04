@@ -22,10 +22,10 @@ import com.k.neleme.BaseActivity;
 import com.k.neleme.MainActivity;
 import com.k.neleme.R;
 import com.k.neleme.Views.AddWidget;
+import com.k.neleme.Views.ListContainer;
 import com.k.neleme.Views.ShopCarView;
 import com.k.neleme.adapters.CarAdapter;
 import com.k.neleme.bean.FoodBean;
-import com.k.neleme.utils.BaseUtils;
 import com.k.neleme.utils.ViewUtils;
 
 import java.math.BigDecimal;
@@ -84,7 +84,7 @@ public class DetailActivity extends BaseActivity implements AddWidget.OnAddClick
 		recyclerView.setLayoutManager(new GridLayoutManager(mContext, 2));
 		recyclerView.addItemDecoration(new SpaceItemDecoration());
 		((DefaultItemAnimator) recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
-		dAdapter = new DetailAdapter(BaseUtils.getDetails(mContext), this);
+		dAdapter = new DetailAdapter(ListContainer.commandList, this);
 		View header = View.inflate(mContext, R.layout.item_detail_header, null);
 		dAdapter.addHeaderView(header);
 		TextView footer = new TextView(mContext);
@@ -145,11 +145,12 @@ public class DetailActivity extends BaseActivity implements AddWidget.OnAddClick
 		BigDecimal amount = new BigDecimal(0.0);
 		int total = 0;
 		boolean hasFood = false;
-		if (foodBean.getId() == this.foodBean.getId()) {
+		if (behavior.getState() == BottomSheetBehavior.STATE_EXPANDED || foodBean.getId() == this.foodBean.getId() && foodBean.getSelectCount() !=
+				this.foodBean.getSelectCount()) {
 			this.foodBean = foodBean;
 			detail_add.expendAdd(foodBean.getSelectCount());
+			handleCommand(foodBean);
 		}
-		handleCommand(foodBean);
 		List<FoodBean> flist = carAdapter.getData();
 		int p = -1;
 		for (int i = 0; i < flist.size(); i++) {

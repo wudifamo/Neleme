@@ -22,6 +22,7 @@ import com.k.neleme.detail.DetailActivity;
 import com.k.neleme.utils.BaseUtils;
 import com.k.neleme.utils.ViewUtils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ListContainer extends LinearLayout {
@@ -34,6 +35,7 @@ public class ListContainer extends LinearLayout {
 	private int index;
 	private Context mContext;
 	public FoodAdapter foodAdapter;
+	public static List<FoodBean> commandList = new ArrayList<>();
 
 	public ListContainer(Context context) {
 		super(context);
@@ -75,6 +77,7 @@ public class ListContainer extends LinearLayout {
 		recyclerView2.setLayoutManager(linearLayoutManager);
 		((DefaultItemAnimator) recyclerView2.getItemAnimator()).setSupportsChangeAnimations(false);
 		foodBeanList = BaseUtils.getDatas(mContext);
+		commandList = BaseUtils.getDetails(foodBeanList);
 		recyclerView2.addOnItemTouchListener(new OnItemClickListener() {
 			@Override
 			public void onItemChildClick(BaseQuickAdapter adapter, View view, int position) {

@@ -38,8 +38,7 @@ public class BaseUtils {
 		return fList;
 	}
 
-	public static List<FoodBean> getDetails(Context context) {
-		List<FoodBean> fList = getDatas(context);
+	public static List<FoodBean> getDetails(List<FoodBean> fList) {
 		ArrayList<FoodBean> flist = new ArrayList<>();
 		for (int i = 1; i < 5; i++) {
 			if (fList.size() > i * 10) {
