@@ -1,6 +1,7 @@
 package com.k.neleme.Views;
 
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.support.annotation.Nullable;
@@ -87,6 +88,7 @@ public class ListContainer extends LinearLayout {
 					intent.putExtra("food", (FoodBean) adapter.getData().get(position));
 					intent.putExtra("position", position);
 					mContext.startActivity(intent);
+					((Activity) mContext).overridePendingTransition(android.R.anim.fade_in, android.R.anim.fade_out);
 				}
 			}
 
