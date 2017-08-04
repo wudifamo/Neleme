@@ -14,6 +14,9 @@
     <color name="detail_like">#ff6000</color>
     <color name="detail_hint">#bbbbbb</color>
     <color name="detail_command">#757575</color>
+    <color name="comment_divider">#dddddd</color>
+    <color name="comment_gray">#666666</color>
+    <color name="comment_hint">#999999</color>
 
     <!-- 蓝绿色 -->
     <color name="bluegreen">#65c1dc</color>

@@ -1,0 +1,171 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/white"
+    tools:layout_editor_absoluteX="0dp"
+    tools:layout_editor_absoluteY="0dp">
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="32dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="20dp"
+        android:text="4.7"
+        android:textColor="@color/price_red"
+        android:textSize="36sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/textView10"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="综合评分"
+        android:textColor="@color/comment_gray"
+        android:textSize="11sp"
+        app:layout_constraintLeft_toLeftOf="@+id/textView9"
+        app:layout_constraintRight_toRightOf="@+id/textView9"
+        app:layout_constraintTop_toBottomOf="@+id/textView9"/>
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="5dp"
+        android:paddingBottom="8dp"
+        android:text="与周边商家持平"
+        android:textColor="@color/comment_hint"
+        android:textSize="10sp"
+        app:layout_constraintLeft_toLeftOf="@+id/textView10"
+        app:layout_constraintRight_toRightOf="@+id/textView10"
+        app:layout_constraintTop_toBottomOf="@+id/textView10"/>
+
+    <TextView
+        android:id="@+id/textView12"
+        android:layout_width="1px"
+        android:layout_height="0dp"
+        android:layout_marginLeft="24dp"
+        android:layout_marginStart="24dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/comment_divider"
+        app:layout_constraintBottom_toBottomOf="@+id/textView11"
+        app:layout_constraintLeft_toRightOf="@+id/textView11"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"/>
+
+    <TextView
+        android:id="@+id/textView13"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:text="服务态度"
+        android:textColor="@color/comment_gray"
+        android:textSize="12sp"
+        app:layout_constraintLeft_toRightOf="@+id/textView12"
+        app:layout_constraintTop_toTopOf="parent"/>
+
+    <TextView
+        android:id="@+id/textView14"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:text="商品评分"
+        android:textColor="@color/comment_gray"
+        android:textSize="12sp"
+        app:layout_constraintLeft_toLeftOf="@+id/textView13"
+        app:layout_constraintTop_toBottomOf="@+id/textView13"/>
+
+    <TextView
+        android:id="@+id/textView15"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="18dp"
+        android:text="送达时间"
+        android:textColor="@color/comment_gray"
+        android:textSize="12sp"
+        app:layout_constraintLeft_toLeftOf="@+id/textView14"
+        app:layout_constraintTop_toBottomOf="@+id/textView14"
+        />
+
+    <RatingBar
+        android:id="@+id/ratingBar"
+        style="@style/ratingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="13dp"
+        android:layout_marginBottom="0dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView13"
+        app:layout_constraintLeft_toRightOf="@+id/textView13"
+        app:layout_constraintTop_toTopOf="@+id/textView13"/>
+
+    <RatingBar
+        android:id="@+id/ratingBar2"
+        style="@style/ratingBar"
+        android:layout_width="wrap_content"
+        android:layout_height="13dp"
+        android:layout_marginBottom="0dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="0dp"
+        app:layout_constraintBottom_toBottomOf="@+id/textView14"
+        app:layout_constraintLeft_toRightOf="@+id/textView14"
+        app:layout_constraintTop_toTopOf="@+id/textView14"/>
+
+    <TextView
+        android:id="@+id/textView16"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="0dp"
+        android:text="66分钟"
+        android:textColor="@color/comment_hint"
+        android:textSize="12sp"
+        app:layout_constraintLeft_toLeftOf="@+id/ratingBar2"
+        app:layout_constraintTop_toTopOf="@+id/textView15"/>
+
+    <TextView
+        android:id="@+id/textView17"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="16dp"
+        android:layout_marginTop="0dp"
+        android:text="4.7分"
+        android:textColor="@color/price_red"
+        android:textSize="12sp"
+        app:layout_constraintLeft_toRightOf="@+id/ratingBar"
+        app:layout_constraintTop_toTopOf="@+id/textView13"/>
+
+    <TextView
+        android:id="@+id/textView18"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="0dp"
+        android:layout_marginTop="0dp"
+        android:text="4.7分"
+        android:textColor="@color/price_red"
+        android:textSize="12sp"
+        app:layout_constraintLeft_toLeftOf="@+id/textView17"
+        app:layout_constraintTop_toTopOf="@+id/textView14"/>
+
+    <TextView
+        android:id="@+id/textView19"
+        android:layout_width="0dp"
+        android:layout_height="1px"
+        android:layout_marginLeft="0dp"
+        android:layout_marginRight="0dp"
+        android:layout_marginTop="16dp"
+        android:background="@color/comment_divider"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView12"/>
+
+</android.support.constraint.ConstraintLayout>

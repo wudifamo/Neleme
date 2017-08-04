@@ -10,6 +10,6 @@ public class SecondFragment extends LazyFragment{
 	@Override
 	protected void onCreateViewLazy(Bundle savedInstanceState) {
 		super.onCreateViewLazy(savedInstanceState);
-		setContentView(R.layout.fragment_second);
+		setContentView(R.layout.item_comment_header);
 	}
 }

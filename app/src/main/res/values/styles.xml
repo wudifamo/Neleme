@@ -56,4 +56,13 @@
         <item name="android:textColor">@color/price_red</item>
         <item name="android:textStyle">bold</item>
     </style>
+
+    <style name="ratingBar" parent="@android:style/Widget.RatingBar">
+        <item name="android:progressDrawable">@drawable/ratingbar_style</item>
+        <item name="android:minHeight">13dp</item>
+        <item name="android:isIndicator">true</item>
+        <item name="android:rating">4.5</item>
+        <item name="android:maxHeight">13dp</item>
+        <item name="android:numStars">5</item>
+    </style>
 </resources>
