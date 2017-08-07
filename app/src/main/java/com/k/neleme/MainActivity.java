@@ -113,7 +113,7 @@ public class MainActivity extends BaseActivity implements AddWidget.OnAddClick {
 		View blackView = findViewById(R.id.blackview);
 		shopCarView.setBehavior(behavior, blackView);
 		RecyclerView carRecView = (RecyclerView) findViewById(R.id.car_recyclerview);
-		carRecView.setNestedScrollingEnabled(false);
+//		carRecView.setNestedScrollingEnabled(false);
 		carRecView.setLayoutManager(new LinearLayoutManager(mContext));
 		((DefaultItemAnimator) carRecView.getItemAnimator()).setSupportsChangeAnimations(false);
 		carAdapter = new CarAdapter(new ArrayList<FoodBean>(), this);

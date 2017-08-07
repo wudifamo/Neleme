@@ -54,7 +54,7 @@ public final class AppBarBehavior extends AppBarLayout.Behavior {
 
 	@Override
 	public void onNestedPreScroll(CoordinatorLayout coordinatorLayout, AppBarLayout child, View target, int dx, int dy, int[] consumed) {
-		if (scroll_container == null) {
+		if (scroll_container == null || target.getId() == R.id.car_recyclerview) {
 			return;
 		}
 		isPositive = dy > 0;
@@ -71,7 +71,7 @@ public final class AppBarBehavior extends AppBarLayout.Behavior {
 	@Override
 	public void onNestedScroll(CoordinatorLayout coordinatorLayout, AppBarLayout child, View target, int dxConsumed, int dyConsumed, int
 			dxUnconsumed, int dyUnconsumed) {
-		if (scroll_container == null) {
+		if (scroll_container == null || target.getId() == R.id.car_recyclerview) {
 			return;
 		}
 		if (dyConsumed == 0 && dyUnconsumed < 0 && child.getTop() == 0) {//向下
@@ -86,6 +86,9 @@ public final class AppBarBehavior extends AppBarLayout.Behavior {
 	@Override
 	public boolean onNestedFling(CoordinatorLayout coordinatorLayout, AppBarLayout child, View target, float velocityX, float velocityY, boolean
 			consumed) {
+		if (target.getId() == R.id.car_recyclerview) {
+			return true;
+		}
 		if (velocityY > 0) {
 			fromFling = true;
 		}

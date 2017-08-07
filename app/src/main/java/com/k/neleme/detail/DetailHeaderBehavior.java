@@ -323,13 +323,28 @@ class DetailHeaderBehavior extends AppBarLayout.Behavior implements AppBarLayout
 
 	@Override
 	public void onNestedPreScroll(CoordinatorLayout coordinatorLayout, AppBarLayout child, View target, int dx, int dy, int[] consumed) {
+		if (target.getId() == R.id.car_recyclerview) {
+			return;
+		}
 		super.onNestedPreScroll(coordinatorLayout, child, target, dx, dy, consumed);
 		isPositive = dy > 0;
 	}
 
 	@Override
+	public void onNestedScroll(CoordinatorLayout coordinatorLayout, AppBarLayout child, View target, int dxConsumed, int dyConsumed, int
+			dxUnconsumed, int dyUnconsumed) {
+		if (target.getId() == R.id.car_recyclerview) {
+			return;
+		}
+		super.onNestedScroll(coordinatorLayout, child, target, dxConsumed, dyConsumed, dxUnconsumed, dyUnconsumed);
+	}
+
+	@Override
 	public boolean onNestedFling(CoordinatorLayout coordinatorLayout, AppBarLayout child, View target, float velocityX, float velocityY, boolean
 			consumed) {
+		if (target.getId() == R.id.car_recyclerview) {
+			return true;
+		}
 		if (velocityY > 0 && !isPositive || velocityY < 0 && isPositive) {
 			velocityY = velocityY * -1;
 		}

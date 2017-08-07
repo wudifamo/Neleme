@@ -137,7 +137,6 @@ public class DetailActivity extends BaseActivity implements AddWidget.OnAddClick
 		});
 		shopCarView.setBehavior(behavior);
 		RecyclerView carRecView = (RecyclerView) findViewById(R.id.car_recyclerview);
-		carRecView.setNestedScrollingEnabled(false);
 		carRecView.setLayoutManager(new LinearLayoutManager(mContext));
 		((DefaultItemAnimator) carRecView.getItemAnimator()).setSupportsChangeAnimations(false);
 		ArrayList<FoodBean> flist = new ArrayList<>();
