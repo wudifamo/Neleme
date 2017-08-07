@@ -15,7 +15,7 @@
 * 购物车弹窗
 * 点击商品后的上滑进入详情下滑退出等逻辑
 
-嵌套滑动使用Coordinator+Behavior实现,不能直接做library使用,仅提供实现方法供大家参考
+嵌套滑动使用Coordinator+Behavior实现
 购物车动画是二阶贝塞尔,想要一模一样的可以自己调quadTo里面的路径
 
 buildToolsVersion使用的最新的26,如果不想更新改低的话有些地方findviewById编译报红,加上转换类型就好了,26的特性就是简化掉了这个显式转换
