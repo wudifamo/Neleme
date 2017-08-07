@@ -341,4 +341,13 @@ class DetailHeaderBehavior extends AppBarLayout.Behavior implements AppBarLayout
 		}
 		return super.onNestedFling(coordinatorLayout, child, target, velocityX, velocityY, consumed);
 	}
+
+	public void setDragable(final boolean canDrag) {
+		setDragCallback(new DragCallback() {
+			@Override
+			public boolean canDrag(@NonNull AppBarLayout appBarLayout) {
+				return canDrag;
+			}
+		});
+	}
 }

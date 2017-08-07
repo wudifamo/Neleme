@@ -4,14 +4,17 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.graphics.Rect;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.design.widget.BottomSheetBehavior;
 import android.support.design.widget.CoordinatorLayout;
 import android.support.v4.content.ContextCompat;
+import android.support.v4.view.ViewCompat;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.Gravity;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
@@ -104,10 +107,35 @@ public class DetailActivity extends BaseActivity implements AddWidget.OnAddClick
 
 
 	private void initShopCar() {
-		behavior = BottomSheetBehavior.from(findViewById(R.id.car_container));
 		shopCarView = (ShopCarView) findViewById(R.id.car_mainfl);
-		View blackView = findViewById(R.id.blackview);
-		shopCarView.setBehavior(behavior, blackView);
+		final View blackView = findViewById(R.id.blackview);
+		behavior = BottomSheetBehavior.from(findViewById(R.id.car_container));
+		behavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
+			@Override
+			public void onStateChanged(@NonNull View bottomSheet, int newState) {
+				shopCarView.sheetScrolling = false;
+				dhb.setDragable(false);
+				if (newState == BottomSheetBehavior.STATE_COLLAPSED || newState == BottomSheetBehavior.STATE_HIDDEN) {
+					blackView.setVisibility(View.GONE);
+					dhb.setDragable(true);
+				}
+			}
+
+			@Override
+			public void onSlide(@NonNull View bottomSheet, float slideOffset) {
+				shopCarView.sheetScrolling = true;
+				blackView.setVisibility(View.VISIBLE);
+				ViewCompat.setAlpha(blackView, slideOffset);
+			}
+		});
+		blackView.setOnTouchListener(new View.OnTouchListener() {
+			@Override
+			public boolean onTouch(View view, MotionEvent motionEvent) {
+				behavior.setState(BottomSheetBehavior.STATE_COLLAPSED);
+				return true;
+			}
+		});
+		shopCarView.setBehavior(behavior);
 		RecyclerView carRecView = (RecyclerView) findViewById(R.id.car_recyclerview);
 		carRecView.setNestedScrollingEnabled(false);
 		carRecView.setLayoutManager(new LinearLayoutManager(mContext));

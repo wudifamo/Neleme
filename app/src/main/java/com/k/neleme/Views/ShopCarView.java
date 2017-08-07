@@ -30,6 +30,10 @@ public class ShopCarView extends FrameLayout {
 	public View shoprl;
 	public int[] carLoc;
 
+	public void setBehavior(final BottomSheetBehavior behavior) {
+		this.behavior = behavior;
+	}
+
 	public void setBehavior(final BottomSheetBehavior behavior, final View blackView) {
 		this.behavior = behavior;
 		behavior.setBottomSheetCallback(new BottomSheetBehavior.BottomSheetCallback() {
