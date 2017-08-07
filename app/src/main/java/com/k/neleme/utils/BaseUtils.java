@@ -3,6 +3,7 @@ package com.k.neleme.utils;
 
 import android.content.Context;
 
+import com.k.neleme.bean.CommentBean;
 import com.k.neleme.bean.FoodBean;
 import com.k.neleme.bean.TypeBean;
 
@@ -49,5 +50,13 @@ public class BaseUtils {
 			}
 		}
 		return flist;
+	}
+
+	public static List<CommentBean> getComment() {
+		ArrayList<CommentBean> cList = new ArrayList<>();
+		for (int i = 0; i < 10; i++) {
+			cList.add(new CommentBean());
+		}
+		return cList;
 	}
 }
