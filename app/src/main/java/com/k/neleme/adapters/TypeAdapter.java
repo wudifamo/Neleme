@@ -25,6 +25,9 @@ public class TypeAdapter extends BaseQuickAdapter<TypeBean, BaseViewHolder> {
 	public TypeAdapter(@Nullable List<TypeBean> data) {
 		super(R.layout.item_type, data);
 		this.data = data;
+		if (data != null && data.size() > 0) {
+			typeStr = data.get(0).getName();
+		}
 	}
 
 	public void updateBadge(HashMap<String, Long> badges) {

@@ -37,6 +37,8 @@ public class ListContainer extends LinearLayout {
 	private Context mContext;
 	public FoodAdapter foodAdapter;
 	public static List<FoodBean> commandList = new ArrayList<>();
+	private TextView tvStickyHeaderView;
+	private View stickView;
 
 	public ListContainer(Context context) {
 		super(context);
@@ -119,14 +121,16 @@ public class ListContainer extends LinearLayout {
 		}
 	}
 
+
 	public void setAddClick(AddWidget.OnAddClick onAddClick) {
 		foodAdapter = new FoodAdapter(foodBeanList, onAddClick);
 		View view = new View(mContext);
 		view.setMinimumHeight(ViewUtils.dip2px(mContext, 50));
 		foodAdapter.addFooterView(view);
 		foodAdapter.bindToRecyclerView(recyclerView2);
-		final View stickView = findViewById(R.id.stick_header);
-		final TextView tvStickyHeaderView = (TextView) stickView.findViewById(R.id.tv_header);
+		stickView = findViewById(R.id.stick_header);
+		tvStickyHeaderView = findViewById(R.id.tv_header);
+		tvStickyHeaderView.setText("类别0");
 		recyclerView2.addOnScrollListener(new RecyclerView.OnScrollListener() {
 			@Override
 			public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
