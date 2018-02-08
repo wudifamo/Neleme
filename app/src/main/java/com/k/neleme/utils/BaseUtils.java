@@ -25,7 +25,7 @@ public class BaseUtils {
 
 	public static List<FoodBean> getDatas(Context context) {
 		ArrayList<FoodBean> fList = new ArrayList<>();
-		for (int i = 0; i < 100; i++) {
+		for (int i = 0; i < 91; i++) {
 			FoodBean foodBean = new FoodBean();
 			foodBean.setId(i);
 			foodBean.setName("食品--" + i + 1);

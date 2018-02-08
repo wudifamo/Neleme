@@ -9,6 +9,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.AttributeSet;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -131,6 +132,13 @@ public class ListContainer extends LinearLayout {
 		stickView = findViewById(R.id.stick_header);
 		tvStickyHeaderView = findViewById(R.id.tv_header);
 		tvStickyHeaderView.setText("类别0");
+        recyclerView2.setOnTouchListener(new OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                typeAdapter.fromClick = false;
+                return false;
+            }
+        });
 		recyclerView2.addOnScrollListener(new RecyclerView.OnScrollListener() {
 			@Override
 			public void onScrolled(RecyclerView recyclerView, int dx, int dy) {

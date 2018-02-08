@@ -15,6 +15,7 @@
         android:layout_height="80dp"
         android:layout_marginLeft="16dp"
         android:layout_marginTop="81dp"
+        android:transitionName="transitionShopImg"
         app:placeholderImageScaleType="centerCrop"
         app:roundedCornerRadius="2dp"/>
 
