@@ -25,3 +25,5 @@ buildToolsVersion使用的最新的26,如果不想更新改低的话有些地方
 计划实现的功能
 * 商户详情页面
 * 评价页面
+
+[![Github Pre-Releases](https://img.shields.io/github/downloads-pre/atom/atom/latest/total.svg)](https://github.com/wudifamo/Neleme)
