@@ -274,12 +274,13 @@ public class MainActivity extends BaseActivity implements AddWidget.OnAddClick {
     }
 
     public void toShopDetail(View view) {
-        ShopInfoContainer shopInfoContainer = (ShopInfoContainer) findViewById(R.id.shopcontainer);
-        if (android.os.Build.VERSION.SDK_INT > 20) {
-            startActivity(new Intent(mContext, ShopDetailActivity.class), ActivityOptions.makeSceneTransitionAnimation(MainActivity.this, shopInfoContainer.iv_shop, "transitionShopImg").toBundle());
-        } else {
-            startActivity(new Intent(mContext, ShopDetailActivity.class));
-        }
+        firstFragment.getFoodAdapter().notifyItemChanged(0);
+//        ShopInfoContainer shopInfoContainer = (ShopInfoContainer) findViewById(R.id.shopcontainer);
+//        if (android.os.Build.VERSION.SDK_INT > 20) {
+//            startActivity(new Intent(mContext, ShopDetailActivity.class), ActivityOptions.makeSceneTransitionAnimation(MainActivity.this, shopInfoContainer.iv_shop, "transitionShopImg").toBundle());
+//        } else {
+//            startActivity(new Intent(mContext, ShopDetailActivity.class));
+//        }
 
     }
 }

@@ -1,12 +1,11 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 26
-    buildToolsVersion "26.0.2"
+    compileSdkVersion 28
     defaultConfig {
         applicationId "com.k.neleme"
         minSdkVersion 19
-        targetSdkVersion 26
+        targetSdkVersion 28
         versionCode 1
         versionName "1.0"
     }
@@ -22,14 +21,32 @@ repositories {
         dirs 'libs'
     }
 }
+configurations.all {
+
+    resolutionStrategy.eachDependency { DependencyResolveDetails details ->
+
+        def requested = details.requested
+
+        if (requested.group =='com.android.support') {
+
+            if (!requested.name.startsWith("multidex")) {
+
+                details.useVersion'28.0.0' //这里改为你项目使用的版本即可
+
+            }
+
+        }
+
+    }
+
+}
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile(name: 'viewpagerindicator', ext: 'aar')
-    compile 'com.android.support:appcompat-v7:26.0.0-alpha1'
-    compile 'com.android.support:design:26.0.0-alpha1'
-    compile 'com.android.support.constraint:constraint-layout:1.0.2'
-    compile 'com.facebook.fresco:fresco:1.2.0'
-    compile 'jp.wasabeef:fresco-processors:2.1.0'
-    compile 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.25'
-    compile 'com.github.florent37:viewanimator:1.0.5'
+    implementation fileTree(include: ['*.jar','*.aar'], dir: 'libs')
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    implementation 'com.android.support:design:28.0.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.1.3'
+    implementation 'com.facebook.fresco:fresco:1.2.0'
+    implementation 'jp.wasabeef:fresco-processors:2.1.0'
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.46'
+    implementation 'com.github.florent37:viewanimator:1.0.5'
 }

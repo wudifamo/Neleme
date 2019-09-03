@@ -53,7 +53,7 @@ public final class AppBarBehavior extends AppBarLayout.Behavior {
 	}
 
 	@Override
-	public void onNestedPreScroll(CoordinatorLayout coordinatorLayout, AppBarLayout child, View target, int dx, int dy, int[] consumed) {
+	public void onNestedPreScroll(CoordinatorLayout coordinatorLayout, AppBarLayout child, View target, int dx, int dy, int[] consumed, int type) {
 		if (scroll_container == null || target.getId() == R.id.car_recyclerview) {
 			return;
 		}
@@ -64,13 +64,12 @@ public final class AppBarBehavior extends AppBarLayout.Behavior {
 			scroll_container.setTranslationY(cty < 0 ? 0 : cty);
 			consumed[1] = dy;
 		} else {
-			super.onNestedPreScroll(coordinatorLayout, child, target, dx, dy, consumed);
+			super.onNestedPreScroll(coordinatorLayout, child, target, dx, dy, consumed, type);
 		}
 	}
 
 	@Override
-	public void onNestedScroll(CoordinatorLayout coordinatorLayout, AppBarLayout child, View target, int dxConsumed, int dyConsumed, int
-			dxUnconsumed, int dyUnconsumed) {
+	public void onNestedScroll(CoordinatorLayout coordinatorLayout, AppBarLayout child, View target, int dxConsumed, int dyConsumed, int dxUnconsumed, int dyUnconsumed, int type) {
 		if (scroll_container == null || target.getId() == R.id.car_recyclerview) {
 			return;
 		}
@@ -80,7 +79,7 @@ public final class AppBarBehavior extends AppBarLayout.Behavior {
 			scroll_container.setTranslationY(cty);
 			return;
 		}
-		super.onNestedScroll(coordinatorLayout, child, target, dxConsumed, dyConsumed, dxUnconsumed, dyUnconsumed);
+		super.onNestedScroll(coordinatorLayout, child, target, dxConsumed, dyConsumed, dxUnconsumed, dyUnconsumed, type);
 	}
 
 	@Override
@@ -105,13 +104,8 @@ public final class AppBarBehavior extends AppBarLayout.Behavior {
 	}
 
 	@Override
-	public boolean onStartNestedScroll(CoordinatorLayout parent, AppBarLayout child, View directTargetChild, View target, int nestedScrollAxes) {
-		return super.onStartNestedScroll(parent, child, directTargetChild, target, nestedScrollAxes);
-	}
-
-	@Override
-	public void onStopNestedScroll(CoordinatorLayout coordinatorLayout, AppBarLayout abl, View target) {
-		super.onStopNestedScroll(coordinatorLayout, abl, target);
+	public void onStopNestedScroll(CoordinatorLayout coordinatorLayout, AppBarLayout abl, View target, int type) {
+		super.onStopNestedScroll(coordinatorLayout, abl, target, type);
 		if (scroll_container == null) {
 			return;
 		}
@@ -128,4 +122,5 @@ public final class AppBarBehavior extends AppBarLayout.Behavior {
 					.start();
 		}
 	}
+
 }

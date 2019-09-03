@@ -2,4 +2,6 @@
     <string name="app_name">Neleme</string>
     <string name="scroll_behavior">@string/appbar_scrolling_view_behavior</string>
     <string name="detail_header_behavior">com.k.neleme.detail.DetailHeaderBehavior</string>
+    <string name="load_end">加载完成</string>
+    <string name="load_failed">加载失败</string>
 </resources>
